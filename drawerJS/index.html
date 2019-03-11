@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="fonts/font-awesome/font-awesome.min.css" />
+        <link rel="stylesheet" href="drawerJs/drawerJs.min.css" />
+        <style>
+            #canvas-editor {
+                margin-top: 50px;
+                margin-left: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="canvas-editor"></div>
+        <script src="jQuery/jquery-1.10.1.min.js"></script>
+        <script src="drawerJs/drawerJs.standalone.min.js"></script>
+        <script src="drawerJs/drawerLocalization.js"></script>
+        <script src="drawerJsConfig.js"></script>
+        <script>
+            $(document).ready(function () {
+                var drawer = new DrawerJs.Drawer(null, {
+                    plugins: drawerPlugins,
+                    pluginsConfig: drawerPluginsConfig,
+                    defaultActivePlugin : { name : 'Pencil', mode : 'lastUsed'},
+                }, 600, 600);
+                $('#canvas-editor').append(drawer.getHtml());
+                drawer.onInsert();
+            });
+        </script>
+    </body>
+</html>
