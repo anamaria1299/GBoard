@@ -15,6 +15,7 @@ public class RoomController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public Image sendMessage(@Payload Image roomImage) {
+    	System.out.println(roomImage);
         return roomImage;
     }
 
@@ -22,7 +23,7 @@ public class RoomController {
     @SendTo("/topic/public")
     public Image addUser(@Payload Image chatMessage, 
                                SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
+        System.out.println(chatMessage);
         headerAccessor.getSessionAttributes().put("Image", chatMessage.getUser());
         return chatMessage;
     }

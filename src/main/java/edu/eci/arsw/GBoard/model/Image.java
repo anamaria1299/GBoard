@@ -18,6 +18,10 @@ public class Image {
 		this.user = user;
 	}
 	
+	public String toString(){
+		return content + user;
+	}
+	
 
 	
 	
