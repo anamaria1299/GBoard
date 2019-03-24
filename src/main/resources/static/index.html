@@ -20,16 +20,5 @@
         <script src="/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                var drawer = new DrawerJs.Drawer(null, {
-                    plugins: drawerPlugins,
-                    pluginsConfig: drawerPluginsConfig,
-                    defaultActivePlugin : { name : 'Pencil', mode : 'lastUsed'},
-                }, 600, 600);
-                $('#canvas-editor').append(drawer.getHtml());
-                drawer.onInsert();
-            });
-        </script>
     </body>
 </html>
