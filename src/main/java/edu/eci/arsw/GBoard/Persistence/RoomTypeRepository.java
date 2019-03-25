@@ -1,13 +1,20 @@
 package edu.eci.arsw.GBoard.Persistence;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import edu.eci.arsw.GBoard.Persistence.Repositories.IRoomTypeRepository;
 import edu.eci.arsw.GBoard.config.DataBaseConfiguration;
 import edu.eci.arsw.GBoard.model.RoomType;
 
+@Component
 public class RoomTypeRepository implements IRoomTypeRepository{
 	
 	@Autowired
@@ -15,7 +22,6 @@ public class RoomTypeRepository implements IRoomTypeRepository{
 
 	@Override
 	public List<RoomType> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

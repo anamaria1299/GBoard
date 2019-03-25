@@ -31,7 +31,7 @@ public class UserRepository implements IUserRepository{
 		    ResultSet rs = stmt.executeQuery(query);;
 		    while (rs.next()) {
 		    	User user= new User();
-		    	System.out.println(rs.toString());
+		    	user.setId(rs.getLong("id"));
 		    	user.setName(rs.getString("name"));
 		    	user.setLastName(rs.getString("lastname"));
 		    	user.setNickName(rs.getString("nickname"));
@@ -51,7 +51,7 @@ public class UserRepository implements IUserRepository{
 
 	@Override
 	public User find(Long id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
