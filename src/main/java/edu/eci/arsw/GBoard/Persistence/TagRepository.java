@@ -76,4 +76,10 @@ public class TagRepository implements ITagRepository{
 		
 	}
 
+	@Override
+	public Tag getCredentianls(String nickname, String pass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

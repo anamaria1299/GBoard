@@ -76,4 +76,10 @@ public class RoomRepository implements IRoomRepository{
 		
 	}
 
+	@Override
+	public Room getCredentianls(String nickname, String pass) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
