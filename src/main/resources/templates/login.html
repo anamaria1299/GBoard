@@ -1,19 +1,10 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-<title>Usuario</title>
-<meta charset="UTF-8">
-<script src="js/apiclient.js"></script>
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="/webjars/bootstrap/4.1.1/css/bootstrap.min.css" />
-
-
+	
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" th:fragment="modalogin">
 		<div class="row">
 			<div class="col-3 offset-4">
 				<input class="form-control form-control-lg" type="text" id="inputNick"
@@ -30,8 +21,6 @@
 					onclick="apiclient.getCredentials($('#inputNick').val(),$('#inputPass').val())">Buscar</button>
 			</div>
 		</div>
-
-
 	</div>
 </body>
 </html>

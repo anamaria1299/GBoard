@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head >
+	<th:block th:fragment="head">
+		<title>Gboard</title>
+		<meta charset="UTF-8">
+		<script src="/webjars/jquery/jquery.min.js"></script>
+		<script src="/webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet"href="/webjars/bootstrap/4.1.1/css/bootstrap.min.css" />
+		<script src="js/apiclient.js"></script>
+	</th:block>
+</head>
+<body  th:fragment="header">
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg justify-content-between">
+		<a class="navbar-brand" href="/">GBoard</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav mr-auto">
+				<a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a> 
+				<a class="nav-item nav-link" href="board">Tablero</a> 
+				<a class="nav-item nav-link" href="boardB">Tablero con Boton</a>
+			</div>
+			<div>
+				<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modallogIn">login</button>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="modal fade" id="modallogIn" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Log In</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div th:replace="login :: modalogin"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

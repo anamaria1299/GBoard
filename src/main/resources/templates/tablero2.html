@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+    	<th:block th:replace="navbar :: head"></th:block>
         <link rel="stylesheet" href="drawerJS/fonts/font-awesome/font-awesome.min.css" />
         <link rel="stylesheet" href="drawerJS/drawerJs/drawerJs.min.css" />
         <style>
@@ -12,12 +13,14 @@
         </style>
     </head>
     <body>
+    	<div th:replace="navbar :: header"></div>
+    	<button id="send" class="btn btn-primary">enviar tablero</button>
         <div id="canvas-editor"></div>
         <script src="drawerJS/jQuery/jquery-1.10.1.min.js"></script>
         <script src="drawerJS/drawerJs/drawerJs.standalone.min.js"></script>
         <script src="drawerJS/drawerJs/drawerLocalization.js"></script>
         <script src="drawerJS/drawerJsConfig.js"></script>
-        <script src="/js/main.js"></script>
+        <script src="/js/main2.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     </body>

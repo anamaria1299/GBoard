@@ -1,0 +1,1 @@
+[![CircleCI](https://circleci.com/gh/anamaria1299/GBoard.svg?style=svg)](https://circleci.com/gh/anamaria1299/GBoard)
