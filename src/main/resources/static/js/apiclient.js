@@ -1,8 +1,15 @@
-apiclient = (function(){
-	return{
-		getCredentials : function(nick,pass){
-			$.get("users/"+nick+"/"+pass);
-			console.log("Entraste muy bien");
+apiclient = (function() {
+
+	return {
+		getCredentials : function(user, pass, suc, err) {
+			console.log(user,pass);
+			$.ajax({
+				url : "/users/" + user + "/" + pass,
+				type : "GET",
+				success : suc,
+				error : err
+			});
 		}
 	}
+
 })();

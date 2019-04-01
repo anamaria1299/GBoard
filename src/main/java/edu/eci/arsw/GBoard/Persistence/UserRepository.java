@@ -27,7 +27,7 @@ public class UserRepository implements IUserRepository {
 			connection = database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			
+
 			while (rs.next()) {
 				User user = new User();
 				user.setId(rs.getLong("id"));
@@ -50,19 +50,12 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public User getCredentianls(String nickname, String pass) {
-		/*
-		 * List<User> users = new ArrayList<>(); users = findAll(); for(User us: users)
-		 * { if(us.getNickName().equals(nickname)&&us.getPassword().equals(pass)) {
-		 * System.out.println("Log exitoso"); return us; } }
-		 * System.out.println("Log no exitoso"); return null;
-		 */
 		String query = "select * from users where nickname = '" + nickname + "' and password = '" + pass + "'";
 		User user = new User();
-		try (Connection connection = database.getDataSource().getConnection()){
+		try (Connection connection = database.getDataSource().getConnection()) {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			;
-			System.out.println(rs.wasNull()+"estpyyyyyyyyyyyyyyyyyyyyyyyyyyyy AQUIIIIIIIIIIIIIIIIIIIIIII");
 			while (rs.next()) {
 				user.setId(rs.getLong("id"));
 				user.setName(rs.getString("name"));
