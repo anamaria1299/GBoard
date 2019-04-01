@@ -1,24 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	
+
 </head>
 <body>
 	<div class="container-fluid" th:fragment="modalogin">
 		<div class="row">
-			<div class="col-3 offset-4">
-				<input class="form-control form-control-lg" type="text" id="inputNick"
-					placeholder="Nickname">
+			<div class="col-6 offset-3">
+				<input class="form-control form-control-lg" type="text"
+					id="inputNick" placeholder="Usuario">
 			</div>
-			<div class="col-3 offset-4">
-				<input class="form-control form-control-lg" type="text" id="inputPass"
-					placeholder="Password">
+			<div class="col-6 offset-3">
+				<input class="form-control form-control-lg" type="password"
+					id="inputPass" placeholder="Contraseña">
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-1">
-				<button type="button" class="btn-lg btn-outline-light" name="button"
-					onclick="apiclient.getCredentials($('#inputNick').val(),$('#inputPass').val())">Buscar</button>
+			<div class="col-1 offset-9">
+				<a class="btn-lg btn-outline-dark"
+					href="/boardB" role="button"
+					onclick="apiclient.getCredentials($('#inputNick').val(),$('#inputPass').val())">Entrar</a>
 			</div>
 		</div>
 	</div>
