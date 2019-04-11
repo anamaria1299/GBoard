@@ -20,4 +20,9 @@ public class ViewController {
 	  String boardB() {
 	    return "tablero2";
 	 }
+	
+	@RequestMapping("/profile")
+	  String profile() {
+	    return "profile";
+	 }
 }
