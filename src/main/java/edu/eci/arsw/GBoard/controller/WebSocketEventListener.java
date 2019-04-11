@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import edu.eci.arsw.GBoard.model.Image;
 
 
 @Component
@@ -28,16 +27,6 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
-        if(username != null) {
-            logger.info("User Disconnected : " + username);
-
-            Image img =  new Image();
-            img.setUser(username);
-
-            messagingTemplate.convertAndSend("/topic/public", img);
-        }
+        logger.info("End a new web socket connection");
     }
 }

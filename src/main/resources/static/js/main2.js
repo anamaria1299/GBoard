@@ -16,7 +16,7 @@ function sendMessage() {
             user: "buena",
             content: drawJson
         };
-        stompClient.send("/app/chat.sendMessage2", {}, JSON.stringify(chatMessage));
+        stompClient.send("/topic/tablero2", {}, JSON.stringify(chatMessage));
     }
 }
 
@@ -29,10 +29,10 @@ function connect() {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public2', onMessageReceived);
+    stompClient.subscribe('/topic/tablero2', onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser2",{},JSON.stringify({user: "buena"}));
+    stompClient.send("/topic/tablero2",{},JSON.stringify({user: "buena"}));
 
     var fun  = function(event){
         sendMessage();
@@ -58,12 +58,7 @@ window.onload = function() {
 
 
 $(document).ready(function () {
-    drawer = new DrawerJs.Drawer(null, {
-        plugins: drawerPlugins,
-        pluginsConfig: drawerPluginsConfig,
-        defaultActivePlugin : { name : 'Pencil', mode : 'lastUsed'},
-    }, 600, 600);
-    $('#canvas-editor').append(drawer.getHtml());
-    drawer.onInsert();
+	drawerBoard.initialize($('#canvas-editor'));
+	drawer = drawerBoard.drawer()
     
 });

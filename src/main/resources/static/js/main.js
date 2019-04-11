@@ -1,49 +1,50 @@
 var stompClient = null;
 var drawer = null;
+var onMouseUp = false;
+var onModified = false;
 
 function onMessageReceived(payload) {
-    drawer.off(drawer.EVENT_CANVAS_MODIFIED)
+	drawer.off(drawer.EVENT_OBJECT_ADDED);
     var message = JSON.parse(payload.body);
     if(message.content){
         drawer.api.loadCanvasFromData(message.content);
     }
+    
+    drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
+    	onModified =  true;
+    	//console.log(onMouseUp + onModified+"mod")
+    	sendMessage();
+    });
 }
 
 function sendMessage() {
-    if(stompClient) {
+    if(stompClient && onMouseUp && onModified) {
+    	onMouseUp = false;
         var chatMessage = {
             user: "buena",
             content: drawer.api.getCanvasAsJSON()
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/topic/tablero", {}, JSON.stringify(chatMessage));
     }
+    onModified = false;
 }
 
 function connect() {
 	var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
-    //stompClient.debug = null;
+    stompClient.debug = null;
 }
 
 function onConnected() {
-    // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/tablero', onMessageReceived);
 
-    // Tell your username to the server
-    stompClient.send("/app/chat.addUser",{},JSON.stringify({user: "buena"}));
-
-    var fun  = function(event){
-        sendMessage();
-    }
-
-    drawer.on(drawer.EVENT_CANVAS_READY,function(event){
-        event.stopPropagation();
-        drawer.on(drawer.EVENT_CANVAS_MODIFIED,fun)
+    drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
+    	onModified =  true;
+    	//console.log(onMouseUp + onModified+"mod")
+    	sendMessage();
     });
-
-
-
+    
 }
 
 
@@ -56,13 +57,16 @@ window.onload = function() {
 };
 
 
+
 $(document).ready(function () {
-    drawer = new DrawerJs.Drawer(null, {
-        plugins: drawerPlugins,
-        pluginsConfig: drawerPluginsConfig,
-        defaultActivePlugin : { name : 'Pencil', mode : 'lastUsed'},
-    }, 600, 600);
-    $('#canvas-editor').append(drawer.getHtml());
-    drawer.onInsert();
+	drawerBoard.initialize($('#canvas-editor'));
+	drawer = drawerBoard.drawer()
+    
+    $(".canvas-container").mouseup(function(){
+    	onMouseUp = true;
+    	//console.log(onMouseUp + onModified+"up")
+    	sendMessage();
+    });
+    
     
 });
