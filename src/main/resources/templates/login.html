@@ -6,20 +6,33 @@
 <body>
 	<div class="container-fluid" th:fragment="modalogin">
 		<div class="row">
-			<div class="col-6 offset-3">
+			<div class="col-6">
 				<input class="form-control form-control-lg" type="text"
 					id="inputNick" placeholder="Usuario">
 			</div>
-			<div class="col-6 offset-3">
+		</div>
+		<div class="row">
+			<div class="col-6" style="margin-top: 5px">
+				<input class="form-control form-control-lg" type="password"
+					id="inputPass" placeholder="Contraseña">
+			</div>
+			<div class="col-4" style="text-align: right; margin-top: 10px">
+				<button type="button" onclick="app.getCredentials()"
+					class="btn btn-outline-dark">Acceder</button>
+			</div>
+		</div>
+	</div>
+	<!--<div class="row"> 
+			<div class="col-6 offset-0">
 				<input class="form-control form-control-lg" type="password"
 					id="inputPass" placeholder="Contraseña">
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-1 offset-9">
-			<button type="button" onclick="app.getCredentials()" class="btn-lg btn-outline-dark">Acceder</button>
+			<button type="button" onclick="app.getCredentials()" class="btn btn-outline-dark">Acceder</button>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 </html>
