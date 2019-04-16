@@ -3,7 +3,7 @@
     <head>
     	<th:block th:replace="navbar :: head"></th:block>
     </head>
-    <body style="background: #2c11d21f;">
+    <body style="background: #2c11d21f;" onload='profile.getUserByNickname("anamaria1299")'>
     	<div th:replace="navbar :: header"></div>
 		<br/>
 		<div class="container-fluid">
@@ -39,9 +39,9 @@
 						</div>
 						<div class="col-md-8">
 						  <div class="card-body">
-							<h5 class="card-title">Nombre de la persona</h5>
-							<p class="card-text">nickname</p>
-							<p class="card-text"><small class="text-muted">Ultima vez activo</small></p>
+							<h1 class="card-title"><b id="name">Nombre de la persona</b></h1>
+							<h5 class="card-text"><i id="nickname">nickname</i></h5>
+							<h5 class="card-text"><small class="text-muted" id="lastDate">Ultima vez activo</small></h5>
 						  </div>
 						</div>
 					  </div>
@@ -76,5 +76,6 @@
 			</div>
 		  <!-- Content here -->
 		</div>
+		
 	</body>
 </html>

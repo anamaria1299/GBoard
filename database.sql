@@ -75,6 +75,11 @@ ALTER TABLE room_tag ADD CONSTRAINT tag_room_fk
    NOT DEFERRABLE 
    INITIALLY IMMEDIATE
 ;
+
+ALTER TABLE public.users ADD CONSTRAINT users_un UNIQUE (nickname);
+ALTER TABLE public.users ADD lastdate date NULL;
+
+
 --insert users
 INSERT INTO "users" VALUES (1,'Ana','Rincon','anamaria1299','ana123',now());
 INSERT INTO "users" VALUES (2,'Santiago','Rocha','srd98','santiago123',now());

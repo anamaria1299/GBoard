@@ -34,5 +34,14 @@ public class UserController {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}
+	
+	@RequestMapping(value="/users/{nick}",method = RequestMethod.GET)
+	public ResponseEntity<?> getUser(@PathVariable String nick){
+	    try {
+	        return new ResponseEntity<>(userRepository.find(nick),HttpStatus.ACCEPTED);
+	    } catch (Exception ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	    }
+	}
 
 }

@@ -12,6 +12,7 @@ public class User implements Serializable{
 	private String nickName;
 	private String password;
 	private Date initialDate;
+	private Date lastDate;
 	
 	public User() {}
 	public User(String name, String lastName, String nickName, String password) {
@@ -20,8 +21,15 @@ public class User implements Serializable{
 		this.nickName= nickName;
 		this.password= password;
 		this.initialDate= new Date(Calendar.getInstance().getTime().getTime());
+		this.lastDate= new Date(Calendar.getInstance().getTime().getTime());
 	}
 
+	public Date getLastDate() {
+		return lastDate;
+	}
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
+	}
 	public Long getId() {
 		return id;
 	}

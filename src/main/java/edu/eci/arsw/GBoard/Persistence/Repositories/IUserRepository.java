@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import edu.eci.arsw.GBoard.model.User;
 
 @Repository
-public interface IUserRepository extends DAO<User, Long>{
+public interface IUserRepository extends DAO<User, String>{
 	
 }
