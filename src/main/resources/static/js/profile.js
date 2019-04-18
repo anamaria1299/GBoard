@@ -32,6 +32,7 @@ profile= (function(){
 	}
 })();
 
+
 $(document).ready(function(){
 	profile.getUserByNickname("anamaria1299");
 });

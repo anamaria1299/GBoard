@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
+import edu.eci.arsw.GBoard.model.User;
 
 @RestController
 public class UserController {
@@ -41,6 +43,26 @@ public class UserController {
 	        return new ResponseEntity<>(userRepository.find(nick),HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	@RequestMapping(value="/users", method = RequestMethod.POST)
+	public ResponseEntity<?> addUser(@RequestBody User user){
+		try {
+	    	userRepository.save(user);
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);            
+	    }
+	}
+	
+	@RequestMapping(value="/users/{nick}",method= RequestMethod.PUT)
+	public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String nick){
+		try {
+	    	userRepository.upadate(user);
+	        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	    } catch (Exception ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);            
 	    }
 	}
 

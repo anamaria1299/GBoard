@@ -37,6 +37,11 @@ public class UserRepository implements IUserRepository {
 				user.setPassword(rs.getString("password"));
 				user.setInitialDate(rs.getDate("initialdate"));
 				user.setLastDate(rs.getDate("lastdate"));
+				user.setGender(rs.getString("gender"));
+				user.setWebPage(rs.getString("webpage"));
+				user.setEmail(rs.getString("email"));
+				user.setCountry(rs.getString("country"));
+				user.setProfile(rs.getString("profile"));
 				users.add(user);
 			}
 			connection.close();
@@ -112,14 +117,54 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public String save(User entity) {
-		// TODO Auto-generated method stub
+		String query = "INSERT INTO \"users\" VALUES ("+entity.getId()+",'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+entity.getInitialDate()+"','"+entity.getLastDate()+"',"+entity.getGender()+","+entity.getWebPage()+","+entity.getEmail()+","+entity.getCountry()+","+entity.getProfile()+")";
+		Connection connection = null;
+		try {
+			connection = database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			stmt.execute(query);
+			connection.close();
+			return "";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
 	@Override
 	public void upadate(User entity) {
-		// TODO Auto-generated method stub
-
+		
+		Connection connection = null;
+		try {
+			connection = database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			if(entity.getGender()!=null) {
+				String query = "update users  set gender='"+entity.getGender()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getLastDate()!=null) {
+				String query = "update users  set lastdate='"+entity.getLastDate()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getPassword()!=null) {
+				String query = "update users  set password='"+entity.getPassword()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getWebPage()!=null) {
+				String query = "update users  set webpage='"+entity.getWebPage()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getEmail()!=null) {
+				String query = "update users  set email='"+entity.getEmail()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getCountry()!=null) {
+				String query = "update users  set country='"+entity.getCountry()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}if(entity.getProfile()!=null) {
+				String query = "update users  set profile='"+entity.getProfile()+"' where nickname='"+entity.getNickName()+"'";
+				stmt.executeUpdate(query);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
