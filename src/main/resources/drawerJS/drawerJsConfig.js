@@ -13,8 +13,6 @@ var drawerPlugins = [
     'TextColor',
     'TextBackgroundColor',
     'Line',
-    'ArrowOneSide',
-    'ArrowTwoSide',
     'Triangle',
     'Rectangle',
     'Circle',
@@ -23,7 +21,8 @@ var drawerPlugins = [
     'ShapeBorder',
     'BrushSize',
     'Resize',
-    'ShapeContextMenu'
+    'ShapeContextMenu',
+    'Image'
 ];
 
 var drawerPluginsConfig = {
@@ -55,5 +54,11 @@ var drawerPluginsConfig = {
             fontSize: [8, 12, 14, 16, 32, 40, 72],
             lineHeight: [1, 2, 3, 4, 6]
        }
+    },
+    Image: {
+        scaleDownLargeImage: true,
+        maxImageSizeKb: 5120,
+        acceptedMIMETypes: ['image/jpeg', 'image/png', 'image/gif'],
+        cropIsActive: true
     }
 }

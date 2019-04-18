@@ -45,6 +45,18 @@ function onConnected() {
     	sendMessage();
     });
     
+    drawer.on('CONTROLED_JSON',function(){
+        $(".canvas-container").mouseup(function(){
+        	onMouseUp = true;
+        	//console.log(onMouseUp + onModified+"up")
+        	sendMessage();
+        });
+    	
+    	onModified =  true;
+    	onMouseUp = true;
+    	sendMessage();
+    });
+    
 }
 
 
