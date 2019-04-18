@@ -3,7 +3,7 @@
     <head>
     	<th:block th:replace="navbar :: head"></th:block>
     </head>
-    <body style="background: #2c11d21f;" onload='profile.getUserByNickname("anamaria1299")'>
+    <body style="background: #2c11d21f;">
     	<div th:replace="navbar :: header"></div>
 		<br/>
 		<div class="container-fluid">
@@ -39,9 +39,9 @@
 						</div>
 						<div class="col-md-8">
 						  <div class="card-body">
-							<h1 class="card-title"><b id="name">Nombre de la persona</b></h1>
-							<h5 class="card-text"><i id="nickname">nickname</i></h5>
-							<h5 class="card-text"><small class="text-muted" id="lastDate">Ultima vez activo</small></h5>
+							<h1 class="card-title"><b id="name"></b></h1>
+							<h5 class="card-text"><i id="nickname"></i></h5>
+							<h5 class="card-text"><small class="text-muted" id="lastDate"></small></h5>
 						  </div>
 						</div>
 					  </div>
@@ -49,33 +49,55 @@
 					
 					
 					<div class="card text-center">
-					  <div class="card-header" >
-						<ul class="nav nav-tabs card-header-tabs">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
 						  <li class="nav-item">
-							<a class="nav-link active" href="#">¿Quién soy?</a>
+							<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true" style="font-style: italic;font-size: larger;font-weight: 500;">¿Quién soy?</a>
 						  </li>
 						  <li class="nav-item">
-							<a class="nav-link" href="#">Intereses</a>
-						  </li>
-						  <li class="nav-item">
-							<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Mas sobre mi</a>
+							<a class="nav-link" id="more-tab" data-toggle="tab" href="#more" role="tab" aria-controls="more" aria-selected="false" style="font-style: italic;font-size: larger;font-weight: 500;">Más sobre mi</a>
 						  </li>
 						</ul>
-					  </div>
-					  <div class="card-body" style="
-							background-color: #2c11d254;
-							border-style: unset;">
-						<h5 class="card-title">Special title treatment</h5>
-						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					  </div>
-					 
+						<div class="tab-content" id="myTabContent">
+						  <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+							</br>
+							<p class="lead" id="info-profile">
+								<div id="profile-text"></div>
+							</p>
+						  </div>
+						  <div class="tab-pane fade" id="more" role="tabpanel" aria-labelledby="more-tab">
+							</br>
+							<dl class="row">
+								<dd class="col-sm-1"></dd>
+								<dt class="col-sm-3" style="text-align: left;">Nombre</dt>
+								<dd class="col-sm-8" id="more-name">A description list is perfect for defining terms.</dd>
+								
+								<dd class="col-sm-1"></dd>
+								<dt class="col-sm-3" style="text-align: left;">Sexo</dt>
+								<dd class="col-sm-8" id="more-gender">A description list is perfect for defining terms.</dd>
+								
+								<dd class="col-sm-1"></dd>
+								<dt class="col-sm-3" style="text-align: left;">Sitio web</dt>
+								<dd class="col-sm-8" id="more-web">A description list is perfect for defining terms.</dd>
+								
+								<dd class="col-sm-1"></dd>
+								<dt class="col-sm-3" style="text-align: left;">Correo electrónico</dt>
+								<dd class="col-sm-8" id="more-mail">A description list is perfect for defining terms.</dd>
+								
+								<dd class="col-sm-1"></dd>
+								<dt class="col-sm-3" style="text-align: left;">Ubicación</dt>
+								<dd class="col-sm-8" id="more-location">A description list is perfect for defining terms.</dd>
+
+							</dl>
+						  </div>
+						</div>
 					</div>
-					
 					
 				</div>
 			</div>
 		  <!-- Content here -->
-		</div>
+				
+			
+			</div>
 		
 	</body>
 </html>

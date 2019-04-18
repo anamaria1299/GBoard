@@ -64,6 +64,11 @@ public class UserRepository implements IUserRepository {
 				user.setPassword(rs.getString("password"));
 				user.setInitialDate(rs.getDate("initialdate"));
 				user.setLastDate(rs.getDate("lastdate"));
+				user.setGender(rs.getString("gender"));
+				user.setWebPage(rs.getString("webpage"));
+				user.setEmail(rs.getString("email"));
+				user.setCountry(rs.getString("country"));
+				user.setProfile(rs.getString("profile"));
 				return user;
 			}
 			connection.close();
@@ -90,6 +95,11 @@ public class UserRepository implements IUserRepository {
 				user.setPassword(rs.getString("password"));
 				user.setInitialDate(rs.getDate("initialdate"));
 				user.setLastDate(rs.getDate("lastdate"));
+				user.setGender(rs.getString("gender"));
+				user.setWebPage(rs.getString("webpage"));
+				user.setEmail(rs.getString("email"));
+				user.setCountry(rs.getString("country"));
+				user.setProfile(rs.getString("profile"));
 				return user;
 			}
 			connection.close();

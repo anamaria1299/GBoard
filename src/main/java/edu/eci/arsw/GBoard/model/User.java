@@ -13,6 +13,11 @@ public class User implements Serializable{
 	private String password;
 	private Date initialDate;
 	private Date lastDate;
+	private String gender;
+	private String webPage;
+	private String email;
+	private String country;
+	private String profile;
 	
 	public User() {}
 	public User(String name, String lastName, String nickName, String password) {
@@ -76,5 +81,42 @@ public class User implements Serializable{
 
 	public void setInitialDate(Date initialDate) {
 		this.initialDate = initialDate;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getWebPage() {
+		return webPage;
+	}
+	public void setWebPage(String webPage) {
+		this.webPage = webPage;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", nickName=" + nickName + ", password="
+				+ password + ", initialDate=" + initialDate + ", lastDate=" + lastDate + ", gender=" + gender
+				+ ", webPage=" + webPage + ", email=" + email + ", country=" + country + ", profile=" + profile + "]";
 	}
 }
