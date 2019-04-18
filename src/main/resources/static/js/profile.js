@@ -10,7 +10,7 @@ profile= (function(){
 				//info about more information about media
 				document.getElementById('more-name').innerHTML= data.name+" "+data.lastName;
 				document.getElementById('more-gender').innerHTML= data.gender;
-				document.getElementById('more-web').innerHTML= data.webPage;
+				document.getElementById('more-web').innerHTML= '<a href="'+data.webPage+'">'+data.webPage+'</a>';
 				document.getElementById('more-mail').innerHTML= data.email;
 				document.getElementById('more-location').innerHTML= data.country;
 				
@@ -35,6 +35,13 @@ profile= (function(){
 			} else {
 			  $('#charNum').text(700 - len);
 			}
+		},
+		
+		setInfo: function setGender(component,nickName, type){
+			$("#"+component)[0].innerHTML = '<input id="'+component+'-1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">';
+			$("#"+component+"-button")[0].innerHTML= 'Guardar';
+			//with a static user
+			$("#"+component+"-button")[0].setAttribute('onclick','apiProfile.set'+type+'($("#'+component+'-1").val(),'+'"anamaria1299"'+')');
 		}
 		
 	}

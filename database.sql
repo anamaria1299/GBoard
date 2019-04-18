@@ -14,6 +14,11 @@ ALTER TABLE public.users ADD webpage varchar(50) NULL;
 ALTER TABLE public.users ADD email varchar(30) NULL;
 ALTER TABLE public.users ADD country varchar(20) NULL;
 ALTER TABLE public.users ADD profile varchar(700) NULL;
+ALTER TABLE public.users ALTER COLUMN country TYPE varchar(100) USING country::varchar;
+ALTER TABLE public.users ALTER COLUMN email TYPE varchar(100) USING email::varchar;
+ALTER TABLE public.users ALTER COLUMN webpage TYPE varchar(100) USING webpage::varchar;
+ALTER TABLE public.users ALTER COLUMN gender TYPE varchar(100) USING gender::varchar;
+
 
 
 CREATE TABLE user_room (

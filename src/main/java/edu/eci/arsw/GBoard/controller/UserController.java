@@ -44,7 +44,7 @@ public class UserController {
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
-	}
+	} 
 	
 	@RequestMapping(value="/users", method = RequestMethod.POST)
 	public ResponseEntity<?> addUser(@RequestBody User user){
@@ -56,10 +56,12 @@ public class UserController {
 	    }
 	}
 	
+	
 	@RequestMapping(value="/users/{nick}",method= RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String nick){
 		try {
-			System.out.println(user.getProfile());
+			//System.out.println(user.getProfile());
+			//System.out.println(user.getGender());
 	    	userRepository.upadate(user);
 	        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {

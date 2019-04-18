@@ -76,21 +76,36 @@
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Sexo</dt>
-								<dd class="col-sm-8" id="more-gender" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4" id="more-gender" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4">
+									<button id="more-gender-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-gender',$('#nickname').val(),'Gender')">Editar</button>
+								</dd>
+
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Sitio web</dt>
-								<dd class="col-sm-8" id="more-web" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4" id="more-web" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4">
+									<button id="more-web-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-web',$('#nickname').val(),'Web')">Editar</button>
+								</dd>
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Correo electrónico</dt>
-								<dd class="col-sm-8" id="more-mail" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4" id="more-mail" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4">
+									<button id="more-mail-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-mail',$('#nickname').val(),'Mail')">Editar</button>
+								</dd>
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Ubicación</dt>
-								<dd class="col-sm-8" id="more-location" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4" id="more-location" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'></dd>
+								<dd class="col-sm-4">
+									<button id="more-location-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-location',$('#nickname').val(),'Location')">Editar</button>
+								</dd>
 
 							</dl>
+							
+							
 						  </div>
 						</div>
 					</div>
