@@ -13,7 +13,7 @@ ALTER TABLE public.users ADD gender varchar(20) NULL;
 ALTER TABLE public.users ADD webpage varchar(50) NULL;
 ALTER TABLE public.users ADD email varchar(30) NULL;
 ALTER TABLE public.users ADD country varchar(20) NULL;
-ALTER TABLE public.users ADD profile varchar(100) NULL;
+ALTER TABLE public.users ADD profile varchar(700) NULL;
 
 
 CREATE TABLE user_room (

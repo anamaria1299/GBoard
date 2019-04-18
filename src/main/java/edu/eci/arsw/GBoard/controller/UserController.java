@@ -59,6 +59,7 @@ public class UserController {
 	@RequestMapping(value="/users/{nick}",method= RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String nick){
 		try {
+			System.out.println(user.getProfile());
 	    	userRepository.upadate(user);
 	        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
