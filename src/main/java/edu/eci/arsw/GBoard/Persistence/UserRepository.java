@@ -108,7 +108,7 @@ public class UserRepository implements IUserRepository {
 				return user;
 			}
 			connection.close();
-			throw new UserException("No se ingreso las credenciales bien");
+			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

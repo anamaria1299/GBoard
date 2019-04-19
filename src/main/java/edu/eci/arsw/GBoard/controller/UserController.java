@@ -1,8 +1,13 @@
 package edu.eci.arsw.GBoard.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +33,20 @@ public class UserController {
 	    }
 	}
 	
-	@RequestMapping(value="/users/{nick}/{pass}",method = RequestMethod.GET)
-	public ResponseEntity<?> manejadorGetLogIn(@PathVariable String nick, @PathVariable String pass){
+	@RequestMapping(value="/login",method = RequestMethod.POST)
+	public ResponseEntity<?> postLogIn(HttpServletRequest req, Model md , HttpSession session){
 	    try {
-	        return new ResponseEntity<>(userRepository.getCredentianls(nick, pass),HttpStatus.ACCEPTED);
+	    	String nick = req.getParameter("inputNick");
+	    	String pass = req.getParameter("inputPass");
+	        ResponseEntity<User> ans = new ResponseEntity<>(userRepository.getCredentianls(nick, pass),HttpStatus.ACCEPTED);
+	        if(!ans.getBody().getName().isEmpty()) {
+	        	session.setAttribute("inputNick", nick);
+	        	return ans; //Aqui se retorna el usuario en json
+	        }else {
+	        	md.addAttribute("error_msg", "El usuario o la contraseña es incorrecto");
+				System.out.println(ans.toString()+" Fallo  "+ans.getBody().getClass().getName()+" Null = "+ans.getBody().getName());
+			}	    
+	        return ans;//Aqui deberia volver a cargarse el index
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
