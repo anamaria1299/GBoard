@@ -54,11 +54,5 @@ public class RoomTypeRepository implements IRoomTypeRepository{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public RoomType getCredentianls(String nickname, String pass) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

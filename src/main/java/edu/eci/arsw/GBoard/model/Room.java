@@ -14,7 +14,7 @@ public class Room implements Serializable{
 	private Date creationDate;
 	private ArrayList<Tag> tags;
 	private RoomType type;
-	private static final int NUMBERMEMBERS= 10;
+	private int NUMBERMEMBERS;
 	private String password;
 	
 	public Room() {}
@@ -26,6 +26,7 @@ public class Room implements Serializable{
 		this.type= type;
 		this.password= password;
 		this.creationDate= new Date(Calendar.getInstance().getTime().getTime());
+		this.NUMBERMEMBERS= members.size();
 	}
 
 	public ArrayList<Tag> getTags() {

@@ -13,5 +13,4 @@ public interface DAO<T extends Serializable, PK> {
 	public void upadate(T entity);
 	public void delete(T o);
 	public void remove(Long id);
-	public T getCredentianls(String nickname, String pass) throws UserException;
 }
