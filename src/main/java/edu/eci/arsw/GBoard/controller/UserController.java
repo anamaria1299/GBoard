@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.GBoard.Persistence.UserException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.User;
 
@@ -34,20 +35,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public ResponseEntity<?> postLogIn(HttpServletRequest req, Model md , HttpSession session){
+	public ResponseEntity<?> postLogIn(HttpServletRequest req, HttpSession session/* Model md ,*/){
 	    try {
 	    	String nick = req.getParameter("inputNick");
 	    	String pass = req.getParameter("inputPass");
-	        ResponseEntity<User> ans = new ResponseEntity<>(userRepository.getCredentianls(nick, pass),HttpStatus.ACCEPTED);
-	        if(!ans.getBody().getName().isEmpty()) {
+	    	userRepository.getCredentianls(nick, pass);
+	        ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
+	        session.setAttribute("nick", nick);
+	        /*if(!ans.getBody().getName().isEmpty()) {
 	        	session.setAttribute("inputNick", nick);
 	        	return ans; //Aqui se retorna el usuario en json
 	        }else {
 	        	md.addAttribute("error_msg", "El usuario o la contraseña es incorrecto");
 				System.out.println(ans.toString()+" Fallo  "+ans.getBody().getClass().getName()+" Null = "+ans.getBody().getName());
 			}	    
-	        return ans;//Aqui deberia volver a cargarse el index
-	    } catch (Exception ex) {
+	        return ans;//Aqui deberia volver a cargarse el index*/
+	        return ans;
+	    } catch (UserException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}

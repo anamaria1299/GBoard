@@ -4,9 +4,8 @@
 
 </head>
 <body>
-	<label style="color: red;">${error_msg}</label>
 	<div class="container-fluid" th:fragment="modalogin">
-		<form action="/login" method="post">
+		<form action="/login" method="post" id="login">
 			<div class="row">
 				<div class="col-6">
 					<input class="form-control form-control-lg" type="text"

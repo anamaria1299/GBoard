@@ -54,7 +54,7 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public User getCredentianls(String nickname, String pass) {
+	public User getCredentianls(String nickname, String pass) throws UserException {
 		String query = "select * from users where nickname = '" + nickname + "' and password = '" + pass + "'";
 		User user = new User();
 		try (Connection connection = database.getDataSource().getConnection()) {
@@ -77,11 +77,10 @@ public class UserRepository implements IUserRepository {
 				return user;
 			}
 			connection.close();
-			throw new UserException("No se ingreso las credenciales bien");
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new UserException("Ocurrio un error inesperado al iniciar sesion");
 		}
+		throw new UserException("No se ingreso las credenciales bien");
 	}
 
 	@Override

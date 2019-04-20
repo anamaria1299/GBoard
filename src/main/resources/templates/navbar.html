@@ -25,8 +25,12 @@
 				<a class="nav-item nav-link" href="board">Tablero</a> 
 				<a class="nav-item nav-link" href="boardB">Tablero con Boton</a>
 			</div>
-			<div>
-				<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modallogIn">Iniciar Sesión</button>
+			<div style="color:white">
+				<div th:if="${!session.isEmpty()}">
+					<label>Bienvenido otra vez&nbsp;</label>
+					<label th:text="${session.nick}"></label>
+				</div>
+				<button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#modallogIn" th:if="${session.isEmpty()}">Iniciar Sesión</button>
 			</div>
 		</div>
 	</nav>

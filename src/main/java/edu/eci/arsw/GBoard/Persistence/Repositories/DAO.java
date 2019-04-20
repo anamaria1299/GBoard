@@ -3,6 +3,8 @@ package edu.eci.arsw.GBoard.Persistence.Repositories;
 import java.io.Serializable;
 import java.util.List;
 
+import edu.eci.arsw.GBoard.Persistence.UserException;
+
 public interface DAO<T extends Serializable, PK> {
 	
 	public List<T> findAll();
@@ -11,5 +13,5 @@ public interface DAO<T extends Serializable, PK> {
 	public void upadate(T entity);
 	public void delete(T o);
 	public void remove(Long id);
-	public T getCredentianls(String nickname, String pass);
+	public T getCredentianls(String nickname, String pass) throws UserException;
 }
