@@ -24,12 +24,13 @@ function sendMessage() {
             user: "buena",
             content: drawer.api.getCanvasAsJSON()
         };
-        stompClient.send("/topic/tablero", {}, JSON.stringify(chatMessage));
+        stompClient.send("/topic/tablero."+$('#room-name').val(), {}, JSON.stringify(chatMessage));
     }
     onModified = false;
 }
 
 function connect() {
+	console.log("hola");
 	var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
@@ -37,7 +38,8 @@ function connect() {
 }
 
 function onConnected() {
-    stompClient.subscribe('/topic/tablero', onMessageReceived);
+    stompClient.subscribe('/topic/tablero.'+$('#room-name').val(), onMessageReceived);
+	prove();
 
     drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
     	onModified =  true;
@@ -64,21 +66,13 @@ function onError(error) {
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
-window.onload = function() {
-    connect();
-};
-
-
-
-$(document).ready(function () {
+function prove() {
 	drawerBoard.initialize($('#canvas-editor'));
-	drawer = drawerBoard.drawer()
+	drawer = drawerBoard.drawer();
     
     $(".canvas-container").mouseup(function(){
     	onMouseUp = true;
     	//console.log(onMouseUp + onModified+"up")
     	sendMessage();
     });
-    
-    
-});
+}
