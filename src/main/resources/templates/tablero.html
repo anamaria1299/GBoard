@@ -4,13 +4,6 @@
     	<th:block th:replace="navbar :: head"></th:block>
         <link rel="stylesheet" href="drawerJS/fonts/font-awesome/font-awesome.min.css" />
         <link rel="stylesheet" href="drawerJS/drawerJs/drawerJs.min.css" />
-        <style>
-            #canvas-editor {
-                margin-top: 50px;
-                margin-left: 50px;
-                position: fixed;
-            }
-        </style>
     </head>
     <body>
     	<div th:replace="navbar :: header"></div>
@@ -18,7 +11,7 @@
 		<p style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;'>
 			En el siguiente espacio podra colocar el nombre de la sala a la que desea conectarse.
 		</p>
-		<div>
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-3">
 					<input id="room-name" type="text"class="form-control"/></h1>

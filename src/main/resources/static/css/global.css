@@ -1,0 +1,48 @@
+.navbar-brand{
+	font-family: LogoFont;
+}
+
+#canvas-editor {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.navbar{
+  background-image: url(/img/wood.jpg);
+}
+
+body{
+  font-family: LogoFont2;
+  background-attachment: fixed;
+  background-image: url(/img/back.png);
+}
+
+.textcontainer{
+	color: white;
+}
+
+.infocontainer{
+  border:none;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.infocontainer > div{
+  border: 8px solid;
+  border-image: url(/img/wood.jpg) 8;
+}
+
+@font-face {
+  font-family: LogoFont;
+  src: url(/fonts/KGLifeisMessy.ttf);
+}
+
+@font-face {
+  font-family: LogoFont2;
+  src: url(/fonts/geomanist-regular-webfont.ttf);
+}
+
+
+
+
+

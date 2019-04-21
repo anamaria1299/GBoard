@@ -5,27 +5,23 @@
     	<script src="js/profile.js"></script>
     	<script src="js/apiProfile.js"></script>
     </head>
-    <body style="background: #2c11d21f;">
+    <body>
     	<div th:replace="navbar :: header"></div>
 		<br/>
 		<div class="container-fluid">
 			<div class="row">
 				
 				<div class="col-12; col-sm-12; col-md-12; col-lg-4">
-					<div class="card" style="width: auto;">
-					  <div class="card-body" style="
-							background-color: #2c11d254;
-							border-style: unset;">
+					<div class="card infocontainer" >
+					  <div class="card-body">
 						<h5 class="card-title">Historial de salas</h5>
 						<h6 class="card-subtitle mb-2 text-muted">salas a las que he pertenecido</h6>
 						<p class="card-text">Se podrán visualizar las salas a las que ha pertenecido durante el tiempo que hace parte de GBoard</p>
 					  </div>
 					</div>
 					<br/>
-					<div class="card" style="width: auto;">
-					  <div class="card-body" style="
-							background-color: #2c11d254;
-							border-style: unset;">
+					<div class="card infocontainer">
+					  <div class="card-body">
 						<h5 class="card-title">Salas que he administrado</h5>
 						<p class="card-text">Se podrán visualizar las salas en las cuales he sido administrador del tablero.</p>
 					  </div>
@@ -34,7 +30,7 @@
 				
 				<div class="col-12; col-sm-12; col-md-12; col-lg-8">
 					
-					<div class="card mb-3" style="max-width: 540px;">
+					<div class="card mb-3 infocontainer" style="max-width: 540px;">
 					  <div class="row no-gutters">
 						<div class="col-md-4">
 						  <img src="..." class="card-img" alt="...">
@@ -50,7 +46,8 @@
 					</div>
 					
 					
-					<div class="card text-center">
+					<div class="card text-center infocontainer">
+						<div>
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
 						  <li class="nav-item">
 							<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true" style="font-style: italic;font-size: larger;font-weight: 500;">¿Quién soy?</a>
@@ -112,6 +109,7 @@
 							
 						  </div>
 						</div>
+					</div>
 					</div>
 					
 				</div>
