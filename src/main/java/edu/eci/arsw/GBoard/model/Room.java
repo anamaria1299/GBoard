@@ -81,6 +81,7 @@ public class Room implements Serializable{
 
 	public void setMembers(ArrayList<User> members) {
 		this.members = members;
+		this.NUMBERMEMBERS= members.size();
 	}
 
 	public Date getCreationDate() {

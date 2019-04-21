@@ -4,6 +4,9 @@
     	<th:block th:replace="navbar :: head"></th:block>
         <link rel="stylesheet" href="drawerJS/fonts/font-awesome/font-awesome.min.css" />
         <link rel="stylesheet" href="drawerJS/drawerJs/drawerJs.min.css" />
+		<script src="/js/room.js"></script>
+		<script src="/js/apiRoom.js"></script>
+		<script src="/js/apiProfile.js"></script>
     </head>
     <body>
     	<div th:replace="navbar :: header"></div>
@@ -14,7 +17,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-3">
-					<input id="room-name" type="text"class="form-control"/></h1>
+					<input id="room-name" type="text"class="form-control"/>
 				</div>
 				<div class="col-4">
 					<button id= "room-name-button" type="button" class="btn btn-outline-info form-control" onclick="connect()" >Conectarse</button><br/>

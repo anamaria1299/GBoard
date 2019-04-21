@@ -30,7 +30,7 @@ function sendMessage() {
 }
 
 function connect() {
-	console.log("hola");
+	
 	var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
