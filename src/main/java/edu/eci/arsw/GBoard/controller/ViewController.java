@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
@@ -31,10 +32,9 @@ public class ViewController {
 	    return "tablero2";
 	 }
 	
-	@RequestMapping("/profile")
-	  String profile(HttpSession session, Model model) {
-		
-		model.addAttribute("user", userRepository.find(session.getAttribute("nick").toString()));
+	@RequestMapping("/u/{profile}")
+	  String profile(@PathVariable String profile, Model model) {
+		model.addAttribute("user", userRepository.find(profile));
 	    return "profile";
 	 }
 }

@@ -2,8 +2,8 @@
 <html>
     <head>
     	<th:block th:replace="navbar :: head"></th:block>
-    	<script src="js/profile.js"></script>
-    	<script src="js/apiProfile.js"></script>
+    	<script src="/js/profile.js"></script>
+    	<script src="/js/apiProfile.js"></script>
     </head>
     <body>
     	<div th:replace="navbar :: header"></div>
@@ -37,7 +37,7 @@
 						</div>
 						<div class="col-md-8">
 						  <div class="card-body">
-							<h1 class="card-title"><b id="name" th:text="${user.name}"></b></h1>
+							<h1 class="card-title"><b id="name" th:text="${user.name +' '+ user.lastName}"></b></h1>
 							<h5 class="card-text"><i id="nickname" th:text="${user.nickName}"></i></h5>
 							<h5 class="card-text"><small class="text-muted" id="lastDate" th:text="${user.lastDate}"></small></h5>
 						  </div>

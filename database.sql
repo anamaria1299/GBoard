@@ -22,19 +22,23 @@ ALTER TABLE public.users ALTER COLUMN gender TYPE varchar(100) USING gender::var
 
 
 CREATE TABLE user_room (
-   userId int  NOT NULL,
-   roomId int  NOT NULL,
+   userId varchar(20)  NOT NULL,
+   roomId varchar(20)  NOT NULL,
    CONSTRAINT user_room_pk PRIMARY KEY (userId,roomId)
 );
+
 CREATE TABLE room (
    id int  NOT NULL,
-   title varchar(20)  NOT NULL,
+   title varchar(20) NOT NULL,
    type int  NOT NULL,
-   owner int  NOT NULL,
+   owner varchar(20)  NOT NULL,
    creationDate date  NOT NULL,
    password varchar(20)  NOT NULL,
    CONSTRAINT room_pk PRIMARY KEY (id)
 );
+ALTER TABLE public.room ADD CONSTRAINT room_un UNIQUE (title);
+ALTER TABLE public.room ALTER COLUMN "password" DROP NOT NULL;
+
 CREATE TABLE roomType (
    id int  NOT NULL,
    roomType varchar(20)  NOT NULL,
@@ -53,20 +57,20 @@ CREATE TABLE tag (
 
 ---FK
 ALTER TABLE user_room ADD CONSTRAINT room_user_members
-   FOREIGN KEY (roomId)
-   REFERENCES "user" (id)  
+   FOREIGN KEY (userId)
+   REFERENCES "users" (nickName)  
    NOT DEFERRABLE 
    INITIALLY IMMEDIATE
 ;
 ALTER TABLE user_room ADD CONSTRAINT user_room_members
-   FOREIGN KEY (userId)
-   REFERENCES room (id)  
+   FOREIGN KEY (roomId)
+   REFERENCES room (title)  
    NOT DEFERRABLE 
    INITIALLY IMMEDIATE
 ;
 ALTER TABLE room ADD CONSTRAINT owner_room
    FOREIGN KEY (owner)
-   REFERENCES "user" (id)  
+   REFERENCES "users" (nickName)  
    NOT DEFERRABLE 
    INITIALLY IMMEDIATE
 ;

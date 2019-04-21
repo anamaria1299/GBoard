@@ -85,6 +85,7 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public User find(String nickname) {
+		
 		String query = "select * from users where nickname = '" + nickname+"'";
 		User user = new User();
 		try (Connection connection = database.getDataSource().getConnection()) {
@@ -123,7 +124,7 @@ public class UserRepository implements IUserRepository {
 			Statement stmt = connection.createStatement();
 			stmt.execute(query);
 			connection.close();
-			return "";
+			return entity.getNickName();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

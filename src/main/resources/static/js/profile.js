@@ -3,6 +3,7 @@ profile= (function(){
 	return {
 		getUserByNickname: function(){		
 				//info about who am I?
+				console.log($("#info-profile").text());
 				if($("#info-profile").text() != ""){
 					document.getElementById('info-profile').innerHTML= $("#info-profile").text();
 					var profile= $("#profile-text");

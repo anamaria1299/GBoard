@@ -61,7 +61,6 @@ function onConnected() {
     
 }
 
-
 function onError(error) {
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }

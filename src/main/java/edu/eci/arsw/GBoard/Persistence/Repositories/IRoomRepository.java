@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import edu.eci.arsw.GBoard.model.Room;
 
 @Repository
-public interface IRoomRepository extends DAO<Room, Long>{
+public interface IRoomRepository extends DAO<Room, String>{
 
 }
