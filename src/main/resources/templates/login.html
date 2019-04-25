@@ -1,21 +1,23 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 
 </head>
+
 <body>
 	<div class="container" th:fragment="modalogin">
+		<div class="alert alert-danger" role="alert" id="modalError" style="display: none"></div>
 		<form action="/login" method="post" id="login">
 			<div class="row">
 				<div class="col-6">
-					<input class="form-control form-control-lg" type="text"
-						name="inputNick" placeholder="Usuario">
+					<input class="form-control form-control-lg" type="text" name="inputNick" placeholder="Usuario">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-6" style="margin-top: 5px">
-					<input class="form-control form-control-lg" type="password"
-						name="inputPass" placeholder="Contraseña">
+					<input class="form-control form-control-lg" type="password" name="inputPass"
+						placeholder="Contraseña">
 				</div>
 				<div class="col-4" style="text-align: right; margin-top: 10px">
 					<input type="submit" value="Acceder" class="btn btn-outline-dark" />
@@ -24,4 +26,5 @@
 		</form>
 	</div>
 </body>
+
 </html>

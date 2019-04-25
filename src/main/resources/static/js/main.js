@@ -2,6 +2,7 @@ var stompClient = null;
 var drawer = null;
 var onMouseUp = false;
 var onModified = false;
+var topciName =  window.location.pathname.split("/")[1];
 
 function onMessageReceived(payload) {
 	drawer.off(drawer.EVENT_OBJECT_ADDED);
@@ -24,7 +25,7 @@ function sendMessage() {
             user: "buena",
             content: drawer.api.getCanvasAsJSON()
         };
-        stompClient.send("/topic/tablero."+$('#room-name').val(), {}, JSON.stringify(chatMessage));
+        stompClient.send("/topic/tablero."+topciName, {}, JSON.stringify(chatMessage));
     }
     onModified = false;
 }
@@ -38,8 +39,7 @@ function connect() {
 }
 
 function onConnected() {
-    stompClient.subscribe('/topic/tablero.'+$('#room-name').val(), onMessageReceived);
-	prove();
+    stompClient.subscribe('/topic/tablero.'+topciName, onMessageReceived);
 
     drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
     	onModified =  true;
@@ -65,13 +65,19 @@ function onError(error) {
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
-function prove() {
+window.onload = function() {
+    connect();
+};
+
+$(document).ready(function () {
 	drawerBoard.initialize($('#canvas-editor'));
-	drawer = drawerBoard.drawer();
+	drawer = drawerBoard.drawer()
     
     $(".canvas-container").mouseup(function(){
     	onMouseUp = true;
     	//console.log(onMouseUp + onModified+"up")
     	sendMessage();
     });
-}
+    
+    
+});

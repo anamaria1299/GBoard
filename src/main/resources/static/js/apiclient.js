@@ -15,8 +15,8 @@ apiclient = (function() {
 				url : $('#login').attr('action'),
 				type : $('#login').attr('method'),
 				data : $('#login').serialize(),
-				success: function(data) {alert("te logeaste bien"); window.location.replace("/")},
-				error : function(data){alert("te logeaste mal )):")}
+				success: function(data) {window.location.replace("/")},
+				error : function(data){$("#modalError").show();$("#modalError").text(data.responseText)}
 			});
 		}
 	}
