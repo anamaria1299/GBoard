@@ -44,5 +44,10 @@ body{
 
 
 
-
-
+#errorContainer{
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  margin-top: -50px;
+  margin-left: -100px;
+}

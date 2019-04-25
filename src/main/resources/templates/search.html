@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <th:block th:replace="navbar :: head"></th:block>
+        <script src="/js/apiSearch.js"></script>
+    </head>
+    <body>
+    	<div th:replace="navbar :: header"></div>
+		<br/>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <form id="searchForm">
+                        <div class="form-group">
+                            <label for="search" style="color:white">Buscar sala</label>
+                            <input type="text" class="form-control" id="search" name="name">
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="sendSearch">Secondary</button>
+                    </form>
+                </div>
+                <div class="col-6">
+                        <form>
+                            <div class="form-group">
+                                <label for="create" style="color:white">Crear Sala</label>
+                                <input type="text" class="form-control" id="create">
+                            </div>
+                        </form>
+                </div>
+            </div>
+		</div>
+		
+	</body>
+</html>

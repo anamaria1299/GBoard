@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -214,6 +213,34 @@ public class RoomRepository implements IRoomRepository{
 			}
 		}
 		
+	}
+
+	@Override
+	public void addUser(User user, String room) throws RoomException{
+		String query= "select * from user_room where userid = '"+user.getNickName()+"' and roomid='"+room+"'";
+		Connection connection= null;
+		try {
+			connection= database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			if(!rs.next()){
+				Room entity = find(room);
+				entity.getMembers().add(user);
+				upadate(entity);
+			}
+			else{
+				throw new RoomException("Ya te encuentras en este grupo");
+			}
+			connection.close();
+		}
+		catch(RoomException e){
+			throw e;
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			throw new RoomException("Ocurrio un error al agregar el usuario a la sala");
+			
+		}
 	}
 
 	@Override

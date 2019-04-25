@@ -1,5 +1,8 @@
 package edu.eci.arsw.GBoard.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.eci.arsw.GBoard.Persistence.RoomException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IRoomRepository;
+import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.Room;
 
 @RestController
@@ -17,6 +22,9 @@ public class RoomController {
 	
 	@Autowired
 	IRoomRepository roomRepository;
+
+	@Autowired
+	IUserRepository userRepository;
 	
 	@RequestMapping(value="/rooms",method=RequestMethod.GET)
 	public ResponseEntity<?> listAllRooms(){
@@ -37,15 +45,6 @@ public class RoomController {
 	    }
 	}
 	
-	@RequestMapping(value="/rooms/{title}", method=RequestMethod.GET)
-	public ResponseEntity<?> getUser(@PathVariable String title){
-		try {
-	        return new ResponseEntity<>(roomRepository.find(title),HttpStatus.ACCEPTED);
-	    } catch (Exception ex) {
-	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
-	    }
-	}
-	
 	@RequestMapping(value="/rooms/{title}", method= RequestMethod.PUT)
 	public ResponseEntity<?> updateRoom(@RequestBody Room room){
 		try {
@@ -54,6 +53,17 @@ public class RoomController {
 	        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);            
+	    }
+	}
+
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public ResponseEntity<?> joinRoom(HttpServletRequest req, HttpSession session){
+		try {
+			String roomName = req.getParameter("name");
+			roomRepository.addUser(userRepository.find(session.getAttribute("nick").toString()), roomName);
+	        return new ResponseEntity<>(roomName,HttpStatus.ACCEPTED);
+	    } catch (RoomException ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}
 

@@ -1,6 +1,7 @@
 package edu.eci.arsw.GBoard.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 
 @Controller
-public class ViewController {
+public class ViewController implements ErrorController{
 	
 	@Autowired
 	IUserRepository userRepository;
@@ -19,7 +20,7 @@ public class ViewController {
 	    return "index";
 	 }
 	
-	@RequestMapping("/board")
+	@RequestMapping("/rooms/{title}")
 	  String board() {
 	    return "tablero";
 	 }
@@ -34,4 +35,19 @@ public class ViewController {
 		model.addAttribute("user", userRepository.find(profile));
 	    return "profile";
 	 }
+
+	 @RequestMapping("/search")
+	 String search() {
+		 return "search";
+	}
+
+	@RequestMapping("/error")
+	String error() {
+		 return "error";
+	}
+
+	@Override
+	public String getErrorPath() {
+		return "/error";
+	}
 }
