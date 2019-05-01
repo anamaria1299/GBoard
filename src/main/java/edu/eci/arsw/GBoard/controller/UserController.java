@@ -65,9 +65,15 @@ public class UserController {
 	    }
 	} 
 	
-	@RequestMapping(value="/users", method = RequestMethod.POST)
-	public ResponseEntity<?> addUser(@RequestBody User user){
+	@RequestMapping(value="/signup", method = RequestMethod.POST)
+	public ResponseEntity<?> addUser(HttpServletRequest req,HttpSession session){
 		try {
+			User user = new User();
+			user.setName(req.getParameter("inputName"));
+			user.setLastName(req.getParameter("inputLast"));
+			user.setNickName(req.getParameter("inputNick"));
+			user.setPassword(req.getParameter("inputPass"));
+			System.out.println("dfsnfkladsnlfkjndslkjjnfkjldsanfkadsnflkd---------------"+user.getCountry());
 	    	userRepository.save(user);
 	        return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (Exception ex) {

@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -117,7 +119,10 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public String save(User entity) {
-		String query = "INSERT INTO \"users\" VALUES ("+entity.getId()+",'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+entity.getInitialDate()+"','"+entity.getLastDate()+"',"+entity.getGender()+","+entity.getWebPage()+","+entity.getEmail()+","+entity.getCountry()+","+entity.getProfile()+")";
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		String date = sdf.format(new Date());
+		String query = "INSERT INTO \"users\" VALUES ((SELECT COUNT(*)+1 FROM \"users\"),'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+date+"','"+date+"')";
 		Connection connection = null;
 		try {
 			connection = database.getDataSource().getConnection();
