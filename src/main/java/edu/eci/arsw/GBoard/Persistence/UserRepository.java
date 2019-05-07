@@ -76,6 +76,7 @@ public class UserRepository implements IUserRepository {
 				user.setEmail(rs.getString("email"));
 				user.setCountry(rs.getString("country"));
 				user.setProfile(rs.getString("profile"));
+				updateLastDate(nickname);
 				return user;
 			}
 			connection.close();
@@ -83,6 +84,20 @@ public class UserRepository implements IUserRepository {
 			throw new UserException("Ocurrio un error inesperado al iniciar sesion");
 		}
 		throw new UserException("No se ingreso las credenciales bien");
+	}
+
+	private void updateLastDate(String nickname) {
+		String date = getActualDate();
+		String query = "UPDATE \"users\" SET lastdate = '"+date+"' where nickname = '" + nickname+"'";
+		Connection connection = null;
+		try {
+			connection = database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			stmt.execute(query);
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -119,9 +134,7 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public String save(User entity) {
-		String pattern = "yyyy-MM-dd";
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		String date = sdf.format(new Date());
+		String date = getActualDate();
 		String query = "INSERT INTO \"users\" VALUES ((SELECT COUNT(*)+1 FROM \"users\"),'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+date+"','"+date+"')";
 		Connection connection = null;
 		try {
@@ -182,6 +195,13 @@ public class UserRepository implements IUserRepository {
 	public void remove(Long id) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private String getActualDate() {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		String date = sdf.format(new Date());
+		return date;
 	}
 
 }

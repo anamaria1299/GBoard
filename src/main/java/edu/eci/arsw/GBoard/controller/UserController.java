@@ -42,14 +42,6 @@ public class UserController {
 	    	userRepository.getCredentianls(nick, pass);
 	        ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
 	        session.setAttribute("nick", nick);
-	        /*if(!ans.getBody().getName().isEmpty()) {
-	        	session.setAttribute("inputNick", nick);
-	        	return ans; //Aqui se retorna el usuario en json
-	        }else {
-	        	md.addAttribute("error_msg", "El usuario o la contraseña es incorrecto");
-				System.out.println(ans.toString()+" Fallo  "+ans.getBody().getClass().getName()+" Null = "+ans.getBody().getName());
-			}	    
-	        return ans;//Aqui deberia volver a cargarse el index*/
 	        return ans;
 	    } catch (UserException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
@@ -73,9 +65,10 @@ public class UserController {
 			user.setLastName(req.getParameter("inputLast"));
 			user.setNickName(req.getParameter("inputNick"));
 			user.setPassword(req.getParameter("inputPass"));
-			System.out.println("dfsnfkladsnlfkjndslkjjnfkjldsanfkadsnflkd---------------"+user.getCountry());
 	    	userRepository.save(user);
-	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    	ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.CREATED);
+	    	session.setAttribute("nick", user.getNickName());
+	        return ans;
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);            
 	    }

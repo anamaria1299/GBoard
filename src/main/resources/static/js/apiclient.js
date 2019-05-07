@@ -9,13 +9,13 @@ apiclient = (function() {
 				success: function(data) {window.location.replace("/")},
 				error : function(data){$("#modalError").show();$("#modalError").text(data.responseText)}
 			});
-		}
+		},
 	
 		signup : function() {
 			$.ajax({
-				url : %('#signup').attr('action'),
-				type : %('#signup').attr('method')
-				data : %('#signup').serialize(),
+				url : $('#signup').attr('action'),
+				type : $('#signup').attr('method'),
+				data : $('#signup').serialize(),
 				success : function(data) {window.location.replace("/")},
 				error : function(data) {$('#modalError').show;$('#modalError').text(data.responseText)}
 			});
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	});
 	$('#signup').submit(function(e) {
 		e.preventDefault()
-		apliclient.
+		apiclient.signup()
 	});
 })
 
