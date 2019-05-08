@@ -49,6 +49,7 @@ public class UserRepository implements IUserRepository {
 			connection.close();
 			return users;
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 

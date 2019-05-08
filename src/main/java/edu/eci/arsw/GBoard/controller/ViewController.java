@@ -20,7 +20,7 @@ public class ViewController implements ErrorController{
 	    return "index";
 	 }
 	
-	@RequestMapping("/rooms/{title}")
+	@RequestMapping("/room/{title}")
 	  String board() {
 	    return "tablero";
 	 }

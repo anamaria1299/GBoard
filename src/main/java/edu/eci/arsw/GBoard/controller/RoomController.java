@@ -1,5 +1,7 @@
 package edu.eci.arsw.GBoard.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import edu.eci.arsw.GBoard.Persistence.RoomException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IRoomRepository;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.Room;
+import edu.eci.arsw.GBoard.model.User;
 
 @RestController
 public class RoomController {
@@ -45,6 +48,15 @@ public class RoomController {
 	    }
 	}
 	
+	@RequestMapping(value="/rooms/{title}", method=RequestMethod.GET)
+	public ResponseEntity<?> getRoom(@PathVariable String title){
+		try {
+	        return new ResponseEntity<>(roomRepository.find(title),HttpStatus.ACCEPTED);
+	    } catch (Exception ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	    }
+	}
+	
 	@RequestMapping(value="/rooms/{title}", method= RequestMethod.PUT)
 	public ResponseEntity<?> updateRoom(@RequestBody Room room){
 		try {
@@ -63,6 +75,23 @@ public class RoomController {
 			roomRepository.addUser(userRepository.find(session.getAttribute("nick").toString()), roomName);
 	        return new ResponseEntity<>(roomName,HttpStatus.ACCEPTED);
 	    } catch (RoomException ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	    }
+	}
+	
+	@RequestMapping(value="/create",method=RequestMethod.POST)
+	public ResponseEntity<?> createRoom(HttpServletRequest req, HttpSession session){
+		try {
+			
+			String roomName = req.getParameter("createName");
+			User user= userRepository.find(session.getAttribute("nick").toString());
+			ArrayList<User> users= new ArrayList<>();
+			users.add(user);
+			Room room= new Room(roomName, user, users, null, null, "");
+			roomRepository.save(room);
+	        return new ResponseEntity<>(roomName,HttpStatus.ACCEPTED);
+	    } catch (Exception ex) {
+	    	System.out.println(ex.getMessage()+"---------------------------------------");
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}

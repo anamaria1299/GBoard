@@ -5,13 +5,24 @@ apiSearch = (function() {
 			url: "/join",
 			type: "POST",
 			data:  $('#searchForm').serialize(),
-			success: function(data){alert("funK"); window.location.replace("/rooms/"+data)},
+			success: function(data){alert("funK"); window.location.replace("/room/"+data)},
 			error: function(data){alert("No tienes sesion iniciada ):")}
 		})
 	}
 	
+	var create =  function(){
+		$.ajax({
+			url: "/create",
+			type: "POST",
+			data:  $('#createForm').serialize(),
+			success: function(data){alert("funK"); window.location.replace("/room/"+data)},
+			error: function(data){alert("No tienes sesion iniciada ):");console.log(data);}
+		})
+	}
+	
 	return {
-		join : join
+		join : join,
+		create: create
 	}
 
 })();
@@ -20,5 +31,9 @@ apiSearch = (function() {
 $(document).ready(function(){
 	$("#sendSearch").click(function(){
 		apiSearch.join()
+	});
+	
+	$("#sendCreate").click(function(){
+		apiSearch.create()
 	});
 });
