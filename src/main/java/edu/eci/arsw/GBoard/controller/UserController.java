@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public ResponseEntity<?> postLogIn(HttpServletRequest req, HttpSession session/* Model md ,*/){
+	public ResponseEntity<?> postLogIn(HttpServletRequest req, HttpSession session){
 	    try {
 	    	String nick = req.getParameter("inputNick");
 	    	String pass = req.getParameter("inputPass");
@@ -74,12 +74,16 @@ public class UserController {
 	    }
 	}
 	
+	@RequestMapping(value="/logout",method = RequestMethod.POST)
+	public ResponseEntity<?> postLogOut(HttpSession session){
+	    ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
+	    session.removeAttribute("nick");
+		return ans;
+	}
 	
 	@RequestMapping(value="/users/{nick}",method= RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String nick){
 		try {
-			//System.out.println(user.getProfile());
-			//System.out.println(user.getGender());
 	    	userRepository.upadate(user);
 	        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {

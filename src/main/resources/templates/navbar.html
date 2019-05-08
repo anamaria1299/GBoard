@@ -28,8 +28,11 @@
 			</div>
 			<div style="color:white">
 				<div th:if="${!session.isEmpty()}">
-					<label>Bienvenido otra vez&nbsp;</label>
-					<a th:text="${session.nick}" th:href="${'/u/'+session.nick}"></a>
+					<form action="/logout" method="post" id="logout">
+						<label>Bienvenido otra vez&nbsp;</label>
+						<a th:text="${session.nick}" th:href="${'/u/'+session.nick}"></a>
+						<input type="submit" value="Cerrar Sesión" class="btn btn-light" />
+					</form>
 				</div>
 				<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modallogIn" th:if="${session.isEmpty()}">Iniciar Sesión</button>
 				<button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalSignUp" th:if="${session.isEmpty()}">Registrarse</button>
