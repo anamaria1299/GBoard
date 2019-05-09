@@ -1,23 +1,21 @@
-var stompClient = null;
-var drawer = null;
-var drawJson = null;
+var topciName =  "prueba"//window.location.pathname.split("/")[1];
 
 function onMessageReceived(payload) {
-	drawer._startEditing();
     var message = JSON.parse(payload.body);
     if(message.content){
-        drawer.api.loadCanvasFromData(message.content);
-    }
+        apiBoard.loadJson(LZString.decompress(message.content));
+    } 
 }
 
 function sendMessage() {
     if(stompClient) {
+    	onMouseUp = false;
         var chatMessage = {
-            user: "buena",
-            content: drawJson
+            content: LZString.compress(apiBoard.getJson())
         };
-        stompClient.send("/topic/tablero2", {}, JSON.stringify(chatMessage));
+        stompClient.send("/topic/tablero."+topciName, {}, JSON.stringify(chatMessage));
     }
+    onModified = false;
 }
 
 function connect() {
@@ -28,27 +26,10 @@ function connect() {
 }
 
 function onConnected() {
-    // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/tablero2', onMessageReceived);
-
-    // Tell your username to the server
-    stompClient.send("/topic/tablero2",{},JSON.stringify({user: "buena"}));
-
-    var fun  = function(event){
-        sendMessage();
-    }
-    
-    $("#send").click(function(){
-    	drawJson = drawer.api.getCanvasAsJSON();
-    	sendMessage();
-    });
-
-
+    stompClient.subscribe('/topic/tablero.'+topciName, onMessageReceived);
 }
 
-
 function onError(error) {
-	console.log(error);
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
@@ -56,9 +37,4 @@ window.onload = function() {
     connect();
 };
 
-
-$(document).ready(function () {
-	drawerBoard.initialize($('#canvas-editor'));
-	drawer = drawerBoard.drawer()
-    
-});
+apiBoard.Socket(sendMessage);

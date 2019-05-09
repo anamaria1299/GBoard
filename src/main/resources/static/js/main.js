@@ -1,29 +1,17 @@
-var stompClient = null;
-var drawer = null;
-var onMouseUp = false;
-var onModified = false;
-var topciName =  window.location.pathname.split("/")[1];
+var topciName =  window.location.pathname.split("/")[2];
 
 function onMessageReceived(payload) {
-	drawer.off(drawer.EVENT_OBJECT_ADDED);
     var message = JSON.parse(payload.body);
     if(message.content){
-        drawer.api.loadCanvasFromData(message.content);
-    }
-    
-    drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
-    	onModified =  true;
-    	//console.log(onMouseUp + onModified+"mod")
-    	sendMessage();
-    });
+        apiBoard.loadJson(LZString.decompress(message.content));
+    } 
 }
 
 function sendMessage() {
-    if(stompClient && onMouseUp && onModified) {
+    if(stompClient) {
     	onMouseUp = false;
         var chatMessage = {
-            user: "buena",
-            content: drawer.api.getCanvasAsJSON()
+            content: LZString.compress(apiBoard.getJson())
         };
         stompClient.send("/topic/tablero."+topciName, {}, JSON.stringify(chatMessage));
     }
@@ -31,7 +19,6 @@ function sendMessage() {
 }
 
 function connect() {
-	
 	var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
@@ -40,25 +27,6 @@ function connect() {
 
 function onConnected() {
     stompClient.subscribe('/topic/tablero.'+topciName, onMessageReceived);
-
-    drawer.on(drawer.EVENT_OBJECT_ADDED,function(){
-    	onModified =  true;
-    	//console.log(onMouseUp + onModified+"mod")
-    	sendMessage();
-    });
-    
-    drawer.on('CONTROLED_JSON',function(){
-        $(".canvas-container").mouseup(function(){
-        	onMouseUp = true;
-        	//console.log(onMouseUp + onModified+"up")
-        	sendMessage();
-        });
-    	
-    	onModified =  true;
-    	onMouseUp = true;
-    	sendMessage();
-    });
-    
 }
 
 function onError(error) {
@@ -69,15 +37,4 @@ window.onload = function() {
     connect();
 };
 
-$(document).ready(function () {
-	drawerBoard.initialize($('#canvas-editor'));
-	drawer = drawerBoard.drawer()
-    
-    $(".canvas-container").mouseup(function(){
-    	onMouseUp = true;
-    	//console.log(onMouseUp + onModified+"up")
-    	sendMessage();
-    });
-    
-    
-});
+apiBoard.Socket(sendMessage);
