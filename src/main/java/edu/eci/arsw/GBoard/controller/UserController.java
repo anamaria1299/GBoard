@@ -3,6 +3,7 @@ package edu.eci.arsw.GBoard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import edu.eci.arsw.GBoard.Persistence.GBoardException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.eci.arsw.GBoard.Persistence.UserException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.User;
 
@@ -27,7 +27,7 @@ public class UserController {
 	@RequestMapping(value="/users",method = RequestMethod.GET)
 	public ResponseEntity<?> listAllUsers(){
 	    try {
-	    	
+	    	System.out.println(userRepository.findAll());
 	        return new ResponseEntity<>(userRepository.findAll(),HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
@@ -43,7 +43,7 @@ public class UserController {
 	        ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
 	        session.setAttribute("nick", nick);
 	        return ans;
-	    } catch (UserException ex) {
+	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}

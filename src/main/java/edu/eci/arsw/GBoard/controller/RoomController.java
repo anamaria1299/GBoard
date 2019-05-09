@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import edu.eci.arsw.GBoard.Persistence.GBoardException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.eci.arsw.GBoard.Persistence.RoomException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IRoomRepository;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.Room;
@@ -75,7 +75,7 @@ public class RoomController {
 			String roomName = req.getParameter("name");
 			roomRepository.addUser(userRepository.find(session.getAttribute("nick").toString()), roomName);
 	        return new ResponseEntity<>(roomName,HttpStatus.ACCEPTED);
-	    } catch (RoomException ex) {
+	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}
