@@ -190,7 +190,7 @@ public class RoomRepository implements IRoomRepository{
 		} finally {
 			try {
 				connection.close();
-				return null;
+				return entity.getTitle();
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
