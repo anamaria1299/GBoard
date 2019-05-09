@@ -22,7 +22,7 @@ public class TagRepository implements ITagRepository{
 	private DataBaseConfiguration database;
 
 	@Override
-	public List<Tag> findAll() {
+	public List<Tag> findAll() throws GBoardException {
 		String query= "select * from tag";
 		List<Tag> tags= new ArrayList<>();
 		Connection connection= null;
@@ -40,10 +40,14 @@ public class TagRepository implements ITagRepository{
 		    connection.close();
 		    return tags;
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
-		
-		return null;
 	}
 
 	@Override

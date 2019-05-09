@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository {
 	private DataBaseConfiguration database;
 
 	@Override
-	public List<User> findAll() {
+	public List<User> findAll() throws GBoardException {
 		String query = "select * from users";
 		List<User> users = new ArrayList<>();
 		Connection connection = null;
@@ -46,24 +46,29 @@ public class UserRepository implements IUserRepository {
 				user.setProfile(rs.getString("profile"));
 				users.add(user);
 			}
-			connection.close();
-			return users;
+			//connection.close();
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return users;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
-
-		return null;
 	}
 
 	@Override
-	public User getCredentianls(String nickname, String pass) throws UserException {
+	public User getCredentianls(String nickname, String pass) throws GBoardException {
 		String query = "select * from users where nickname = '" + nickname + "' and password = '" + pass + "'";
 		User user = new User();
-		try (Connection connection = database.getDataSource().getConnection()) {
+		Connection connection= null;
+		try {
+			connection= database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			;
+
 			while (rs.next()) {
 				user.setId(rs.getLong("id"));
 				user.setName(rs.getString("name"));
@@ -80,14 +85,20 @@ public class UserRepository implements IUserRepository {
 				updateLastDate(nickname);
 				return user;
 			}
-			connection.close();
 		} catch (Exception e) {
-			throw new UserException("Ocurrio un error inesperado al iniciar sesion");
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return null;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
-		throw new UserException("No se ingreso las credenciales bien");
+
 	}
 
-	private void updateLastDate(String nickname) {
+	private void updateLastDate(String nickname) throws GBoardException {
 		String date = getActualDate();
 		String query = "UPDATE \"users\" SET lastdate = '"+date+"' where nickname = '" + nickname+"'";
 		Connection connection = null;
@@ -95,21 +106,28 @@ public class UserRepository implements IUserRepository {
 			connection = database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 			stmt.execute(query);
-			connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
 	}
 
 	@Override
-	public User find(String nickname) {
+	public User find(String nickname) throws GBoardException {
 		
 		String query = "select * from users where nickname = '" + nickname+"'";
 		User user = new User();
-		try (Connection connection = database.getDataSource().getConnection()) {
+		Connection connection = null;
+		try {
+			connection= database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			;
+
 			while (rs.next()) {
 				user.setId(rs.getLong("id"));
 				user.setName(rs.getString("name"));
@@ -128,13 +146,18 @@ public class UserRepository implements IUserRepository {
 			connection.close();
 			return user;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
 	}
 
 	@Override
-	public String save(User entity) {
+	public String save(User entity) throws GBoardException {
 		String date = getActualDate();
 		String query = "INSERT INTO \"users\" VALUES ((SELECT COUNT(*)+1 FROM \"users\"),'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+date+"','"+date+"')";
 		Connection connection = null;
@@ -145,14 +168,19 @@ public class UserRepository implements IUserRepository {
 			connection.close();
 			return entity.getNickName();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
 
-		return null;
 	}
 
 	@Override
-	public void upadate(User entity) {
+	public void upadate(User entity) throws GBoardException {
 		
 		Connection connection = null;
 		try {
@@ -182,8 +210,15 @@ public class UserRepository implements IUserRepository {
 			}
 			connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
+
 	}
 
 	@Override

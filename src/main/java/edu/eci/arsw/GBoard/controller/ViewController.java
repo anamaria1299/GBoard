@@ -1,5 +1,6 @@
 package edu.eci.arsw.GBoard.controller;
 
+import edu.eci.arsw.GBoard.Persistence.GBoardException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,12 @@ public class ViewController implements ErrorController{
 	
 	@RequestMapping("/u/{profile}")
 	  String profile(@PathVariable String profile, Model model) {
-		model.addAttribute("user", userRepository.find(profile));
-	    return "profile";
+		try {
+			model.addAttribute("user", userRepository.find(profile));
+		} catch (GBoardException e) {
+			e.printStackTrace();
+		}
+		return "profile";
 	 }
 
 	 @RequestMapping("/search")

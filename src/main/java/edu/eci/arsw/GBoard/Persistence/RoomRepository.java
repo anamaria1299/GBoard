@@ -31,7 +31,7 @@ public class RoomRepository implements IRoomRepository{
 	ITagRepository tagRepository;
 
 	@Override
-	public List<Room> findAll() {
+	public List<Room> findAll() throws GBoardException {
 		String query= "select * from room";
 		List<Room> rooms= new ArrayList<>();
 		Connection connection= null;
@@ -93,25 +93,30 @@ public class RoomRepository implements IRoomRepository{
 			    }
 		    	connection.close();
 		    }
-		    
-		    return rooms;
+
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return rooms;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
-		
-		return null;
+
 	}
 
 	@Override
-	public Room find(String title) {
+	public Room find(String title) throws GBoardException {
 		
 		String query= "select * from room where title='"+title+"'";
 		Connection connection= null;
+		Room room= new Room();
 		try {
 			connection= database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 		    ResultSet rs = stmt.executeQuery(query);
-		    Room room= new Room();
 		    while (rs.next()) {
 		    	room.setId(rs.getLong("id"));
 		    	room.setTitle(rs.getString("title"));
@@ -155,19 +160,21 @@ public class RoomRepository implements IRoomRepository{
 	    	while(rs.next()) {
 	    		room.getType().setRoomType(rs.getString("roomtype")); 
 		    }
-	    	
-	    	connection.close();
-		    return room;
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return room;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
-		
-		return null;
 	}
 
 	//Just for public rooms
 	@Override
-	public String save(Room entity) {
+	public String save(Room entity) throws GBoardException {
 		long maxId= this.findAll().size()+1;
 		entity.setId(maxId);
 		String query = "INSERT INTO room VALUES ("+entity.getId()+",'"+entity.getTitle()+"',"+entity.getType().getId()+",'"+entity.getOwner().getNickName()+"','"+entity.getCreationDate()+"','"+entity.getPassword()+"')";
@@ -179,13 +186,19 @@ public class RoomRepository implements IRoomRepository{
 			connection.close();
 			return entity.getTitle();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		return "";
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return null;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
+		}
 	}
 
 	@Override
-	public void upadate(Room entity) {
+	public void upadate(Room entity) throws GBoardException {
 		
 		Room room= find(entity.getTitle());
 		HashSet<String> old= new HashSet<String>();
@@ -207,14 +220,20 @@ public class RoomRepository implements IRoomRepository{
 				stmt.execute(query);
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new GBoardException(e.getMessage());
+			} finally {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new GBoardException("Failed to close connection");
+				}
 			}
 		}
 		
 	}
 
 	@Override
-	public void addUser(User user, String room) throws RoomException{
+	public void addUser(User user, String room) throws GBoardException{
 		String query= "select * from user_room where userid = '"+user.getNickName()+"' and roomid='"+room+"'";
 		Connection connection= null;
 		try {
@@ -227,17 +246,21 @@ public class RoomRepository implements IRoomRepository{
 				upadate(entity);
 			}
 			else{
-				throw new RoomException("Ya te encuentras en este grupo");
+				throw new GBoardException("You already are in this group");
 			}
 			connection.close();
 		}
-		catch(RoomException e){
-			throw e;
+		catch(GBoardException e){
+			throw new GBoardException(e.getMessage());
 		}
 		catch(Exception ex){
-			ex.printStackTrace();
-			throw new RoomException("Ocurrio un error al agregar el usuario a la sala");
-			
+			throw new GBoardException(ex.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
 		}
 	}
 
