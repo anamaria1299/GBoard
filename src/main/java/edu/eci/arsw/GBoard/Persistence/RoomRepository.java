@@ -157,8 +157,6 @@ public class RoomRepository implements IRoomRepository{
 		    }
 	    	
 	    	connection.close();
-		    
-	    	
 		    return room;
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -170,9 +168,10 @@ public class RoomRepository implements IRoomRepository{
 	//Just for public rooms
 	@Override
 	public String save(Room entity) {
-		
+		long maxId= this.findAll().size()+1;
+		entity.setId(maxId);
 		String query = "INSERT INTO room VALUES ("+entity.getId()+",'"+entity.getTitle()+"',"+entity.getType().getId()+",'"+entity.getOwner().getNickName()+"','"+entity.getCreationDate()+"','"+entity.getPassword()+"')";
-		Connection connection = null;
+		Connection connection = null;		
 		try {
 			connection = database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
@@ -181,9 +180,8 @@ public class RoomRepository implements IRoomRepository{
 			return entity.getTitle();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-
-		return null;
+		} 
+		return "";
 	}
 
 	@Override

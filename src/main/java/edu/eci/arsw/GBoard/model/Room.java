@@ -92,4 +92,11 @@ public class Room implements Serializable{
 		this.creationDate = creationDate;
 	}
 	
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", title=" + title + ", owner=" + owner + ", members=" + members + ", creationDate="
+				+ creationDate + ", tags=" + tags + ", type=" + type + ", NUMBERMEMBERS=" + NUMBERMEMBERS
+				+ ", password=" + password + "]";
+	}
+	
 }

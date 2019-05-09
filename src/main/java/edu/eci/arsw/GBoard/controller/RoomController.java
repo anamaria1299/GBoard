@@ -18,6 +18,7 @@ import edu.eci.arsw.GBoard.Persistence.RoomException;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IRoomRepository;
 import edu.eci.arsw.GBoard.Persistence.Repositories.IUserRepository;
 import edu.eci.arsw.GBoard.model.Room;
+import edu.eci.arsw.GBoard.model.RoomType;
 import edu.eci.arsw.GBoard.model.User;
 
 @RestController
@@ -87,11 +88,11 @@ public class RoomController {
 			User user= userRepository.find(session.getAttribute("nick").toString());
 			ArrayList<User> users= new ArrayList<>();
 			users.add(user);
-			Room room= new Room(roomName, user, users, null, null, "");
+			RoomType type= new RoomType("publica");
+			Room room= new Room(roomName, user, users, null, type, "");
 			roomRepository.save(room);
 	        return new ResponseEntity<>(roomName,HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
-	    	System.out.println(ex.getMessage()+"---------------------------------------");
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}

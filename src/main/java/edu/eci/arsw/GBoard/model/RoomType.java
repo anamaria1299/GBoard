@@ -10,6 +10,13 @@ public class RoomType implements Serializable{
 	public RoomType() {}
 	public RoomType(String roomType) {
 		this.roomType= roomType;
+		if(roomType.equals("publica")) {
+			this.id=(long)1;
+		}else if(roomType.equals("privada")) {
+			this.id=(long)2;
+		}else {
+			this.id=(long)3;
+		}
 	}
 
 	public String getRoomType() {
