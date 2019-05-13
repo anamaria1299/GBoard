@@ -6,8 +6,6 @@ apiProfile= (function(){
 		},
 		
 		putProfile: function(profile,nickname){
-			//console.log(profile);
-			//console.log(nickname);
 			this.getUser(nickname,function(data){
 				data.profile= profile;
 				//alert(JSON.stringify(data));
@@ -24,11 +22,8 @@ apiProfile= (function(){
 		},
 		
 		setGender: function(gender,nickname){
-			//console.log(gender);
-			//console.log(nickname);
 			this.getUser(nickname,function(data){
 				data.gender= gender;
-				//alert(JSON.stringify(data));
 				$.ajax({
 					type: "PUT",
 					url: "/users/"+nickname,
@@ -44,7 +39,6 @@ apiProfile= (function(){
 		setWeb: function(web,nickname){
 			this.getUser(nickname,function(data){
 				data.webPage= web;
-				//alert(JSON.stringify(data));
 				$.ajax({
 					type: "PUT",
 					url: "/users/"+nickname,
@@ -76,7 +70,6 @@ apiProfile= (function(){
 		setLocation: function(locat,nickname){
 			this.getUser(nickname,function(data){
 				data.country= locat;
-				//alert(JSON.stringify(data));
 				$.ajax({
 					type: "PUT",
 					url: "/users/"+nickname,
@@ -87,6 +80,14 @@ apiProfile= (function(){
 					}
 				});
 			});
+		},
+
+		getRoomByOwner: function (nickname,callback) {
+			$.get("/rooms/owner/"+nickname,function(data){callback(data);});
+		},
+
+		getRoomByMember: function (nickname,callback) {
+			$.get("/rooms/member/"+nickname,function(data){callback(data);});
 		}
 	}
 })();

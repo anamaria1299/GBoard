@@ -65,4 +65,27 @@ public class RoomServiceImpl implements IRoomService {
         roomRepository.addUser(userRepository.find(session.getAttribute("nick").toString()), roomName);
         return roomName;
     }
+
+    @Override
+    public List<Room> getRoomByOwner(String nickname) throws GBoardException {
+        return roomRepository.findByOwner(nickname);
+    }
+
+    @Override
+    public List<Room> getRoomByMember(String nickname) throws GBoardException {
+        List<Room> all= roomRepository.findAll();
+        List<Room> rooms = new ArrayList<Room>();
+
+        for(Room r: all){
+            if(!r.getOwner().getNickName().equals(nickname)){
+                List<User> users=r.getMembers();
+                for(User u: users){
+                    if(u.getNickName().equals(nickname)){
+                        rooms.add(r);break;
+                    }
+                }
+            }
+        }
+        return rooms;
+    }
 }

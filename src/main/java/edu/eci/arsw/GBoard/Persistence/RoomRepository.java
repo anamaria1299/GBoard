@@ -265,6 +265,44 @@ public class RoomRepository implements IRoomRepository{
 	}
 
 	@Override
+	public List<Room> findByOwner(String nickname) throws GBoardException {
+		String query= "select * from room where owner='"+nickname+"'";
+		List<Room> rooms= new ArrayList<>();
+		Connection connection= null;
+		try {
+			connection= database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				Room room= new Room();
+				room.setId(rs.getLong("id"));
+				room.setTitle(rs.getString("title"));
+				room.setOwner(userRepository.find(rs.getString("owner")));
+				room.setCreationDate(rs.getDate("creationdate"));
+				room.setPassword(rs.getString("password"));
+				room.setMembers(new ArrayList<User>());
+				room.setTags(new ArrayList<Tag>());
+				RoomType type= new RoomType();
+				type.setId(rs.getLong("type"));
+				room.setType(type);
+				rooms.add(room);
+			}
+			connection.close();
+
+		}catch(SQLException e) {
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return rooms;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
+		}
+	}
+
+	@Override
 	public void delete(Room o) {
 		// TODO Auto-generated method stub
 		
