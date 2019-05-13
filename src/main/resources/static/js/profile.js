@@ -28,6 +28,30 @@ profile= (function(){
 			$("#"+component+"-button")[0].innerHTML= 'Guardar';
 			//with a static user
 			$("#"+component+"-button")[0].setAttribute('onclick','apiProfile.set'+type+'($("#'+component+'-1").val(),'+"$('#nickname').text()"+')');
+		},
+
+		setInfoRooms: function setInfoRoom(){
+			var room = $("#rooms");
+			apiProfile.getRoomByMember($('#nickname').text(), function (data) {
+				var rooms= '', date= '';
+				for(var i= 0; i < data.length ; i++){
+					rooms+='<div><a href="/room/'+data[i].title+'" style="color: #864603;">'+data[i].title+'</a></div>';
+					date += '<div>'+data[i].creationDate+'</div>';
+				}
+				room.append('<br><div class="row"><div class="col-2"></div><div class="col-4">'+rooms+'</div><div class="col-4">'+date+'</div><div class="col-2"></div>');
+			});
+		} ,
+
+		setInfoMyRooms: function setInfoMyRooms(){
+			var room = $("#myRooms");
+			apiProfile.getRoomByOwner($('#nickname').text(), function (data) {
+				var rooms= '', date= '';
+				for(var i= 0; i < data.length ; i++){
+					rooms+='<div><a href="/room/'+data[i].title+'" style="color: #864603;">'+data[i].title+'</a></div>';
+					date += '<div>'+data[i].creationDate+'</div>';
+				}
+				room.append('<br><div class="row"><div class="col-2"></div><div class="col-4">'+rooms+'</div><div class="col-4">'+date+'</div><div class="col-2"></div>');
+			});
 		}
 		
 	}
@@ -36,4 +60,6 @@ profile= (function(){
 
 $(document).ready(function(){
 	profile.getUserByNickname();
+	profile.setInfoRooms();
+	profile.setInfoMyRooms();
 });

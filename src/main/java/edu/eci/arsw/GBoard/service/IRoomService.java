@@ -27,4 +27,10 @@ public interface IRoomService {
     String joinRoom(String roomName, String nick) throws GBoardException;
 
     List<Room> searchProgress(String title) throws GBoardException;
+    
+    String joinRoom(HttpServletRequest req, HttpSession session) throws GBoardException;
+
+    List<Room> getRoomByOwner(String nickname) throws GBoardException;
+
+    List<Room> getRoomByMember(String nickname) throws GBoardException;
 }

@@ -51,7 +51,25 @@ public class RoomController {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}
-	
+
+	@RequestMapping(value="/rooms/owner/{nickname}", method=RequestMethod.GET)
+	public ResponseEntity<?> getRoomsByOwner(@PathVariable String nickname){
+		try {
+			return new ResponseEntity<>(roomService.getRoomByOwner(nickname),HttpStatus.ACCEPTED);
+		} catch (GBoardException ex) {
+			return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@RequestMapping(value="/rooms/member/{nickname}", method=RequestMethod.GET)
+	public ResponseEntity<?> getRoomsByMember(@PathVariable String nickname){
+		try {
+			return new ResponseEntity<>(roomService.getRoomByMember(nickname),HttpStatus.ACCEPTED);
+		} catch (GBoardException ex) {
+			return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@RequestMapping(value="/rooms/{title}", method= RequestMethod.PUT)
 	public ResponseEntity<?> updateRoom(@RequestBody Room room){
 		try {
