@@ -1,34 +1,39 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <th:block th:replace="navbar :: head"></th:block>
-        <script src="/js/apiSearch.js"></script>
-    </head>
-    <body>
-    	<div th:replace="navbar :: header"></div>
-		<br/>
-		<div class="container-fluid">
-            <div class="row">
-                <div class="col-6">
-                    <form id="searchForm">
-                        <div class="form-group">
-                            <label for="search" style="color:white">Buscar sala</label>
-                            <input type="text" class="form-control" id="search" name="name">
-                        </div>
-                        <button type="button" class="btn btn-secondary" id="sendSearch">Buscar</button>
-                    </form>
-                </div>
-                <div class="col-6">
-                        <form id="createForm">
-                            <div class="form-group">
-                                <label for="create" style="color:white">Crear Sala</label>
-                                <input type="text" class="form-control" id="create" name="createName">
-                            </div>
-                        	<button type="button" class="btn btn-secondary" id="sendCreate">Crear</button>    
-                        </form>
-                </div>
+
+<head>
+    <th:block th:replace="navbar :: head"></th:block>
+    <script src="/js/apiSearch.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body>
+    <div th:replace="navbar :: header"></div>
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 id="serachTitle">DESCUBRE TU SALA</h1>
             </div>
-		</div>
-		
-	</body>
+
+        </div>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <form id="searchForm">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg"
+                            placeholder="Escribe para buscar una sala" name="createName" id="searchInput">
+                        <div class="input-group-append search">
+                            <button class="btn btn-success" type="button" id="sendCreate">Crear Sala</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row" id="roomsContent">
+        </div>
+    </div>
+
+</body>
+
 </html>

@@ -71,8 +71,9 @@ public class UserController {
 	
 	@RequestMapping(value="/logout",method = RequestMethod.POST)
 	public ResponseEntity<?> postLogOut(HttpSession session){
+		session.removeAttribute("nick");
+		session.invalidate();
 	    ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
-	    session.removeAttribute("nick");
 		return ans;
 	}
 	

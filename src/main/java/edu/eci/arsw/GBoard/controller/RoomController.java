@@ -66,7 +66,9 @@ public class RoomController {
 	@RequestMapping(value="/join",method=RequestMethod.POST)
 	public ResponseEntity<?> joinRoom(HttpServletRequest req, HttpSession session){
 		try {
-	        return new ResponseEntity<>(roomService.joinRoom(req, session),HttpStatus.ACCEPTED);
+			String roomName = req.getParameter("name");
+			String nick = session.getAttribute("nick").toString();
+	        return new ResponseEntity<>(roomService.joinRoom(roomName, nick),HttpStatus.ACCEPTED);
 	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
@@ -75,7 +77,18 @@ public class RoomController {
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	public ResponseEntity<?> createRoom(HttpServletRequest req, HttpSession session){
 		try {
-			return new ResponseEntity<>(roomService.createRoom(req, session),HttpStatus.ACCEPTED);
+			String nick = session.getAttribute("nick").toString();
+			String roomName = req.getParameter("createName");
+			return new ResponseEntity<>(roomService.createRoom(roomName, nick),HttpStatus.ACCEPTED);
+	    } catch (GBoardException ex) {
+	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+	    }
+	}
+
+	@RequestMapping(value="/searcher",method=RequestMethod.GET)
+	public ResponseEntity<?> searchRoom(HttpServletRequest req, HttpSession session){
+		try {
+			return new ResponseEntity<>(roomService.searchProgress(req.getParameter("createName")),HttpStatus.ACCEPTED);
 	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }

@@ -39,9 +39,8 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public String createRoom(HttpServletRequest req, HttpSession session) throws GBoardException {
-        String roomName = req.getParameter("createName");
-        User user= userRepository.find(session.getAttribute("nick").toString());
+    public String createRoom(String roomName, String nick) throws GBoardException {
+        User user= userRepository.find(nick);
         ArrayList<User> users= new ArrayList<>();
         users.add(user);
         RoomType type= new RoomType("publica");
@@ -60,9 +59,13 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public String joinRoom(HttpServletRequest req, HttpSession session) throws GBoardException {
-        String roomName = req.getParameter("name");
-        roomRepository.addUser(userRepository.find(session.getAttribute("nick").toString()), roomName);
+    public String joinRoom(String roomName, String nick) throws GBoardException {
+        roomRepository.addUser(userRepository.find(nick), roomName);
         return roomName;
+    }
+
+    @Override
+    public List<Room> searchProgress(String title) throws GBoardException {
+        return roomRepository.searchProgress(title);
     }
 }

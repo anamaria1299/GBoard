@@ -14,7 +14,7 @@ public class Room implements Serializable{
 	private Date creationDate;
 	private ArrayList<Tag> tags;
 	private RoomType type;
-	private int NUMBERMEMBERS;
+	private int numMembers;
 	private String password;
 	
 	public Room() {}
@@ -26,7 +26,7 @@ public class Room implements Serializable{
 		this.type= type;
 		this.password= password;
 		this.creationDate= new Date(Calendar.getInstance().getTime().getTime());
-		this.NUMBERMEMBERS= members.size();
+		this.numMembers= members.size();
 	}
 
 	public ArrayList<Tag> getTags() {
@@ -42,7 +42,7 @@ public class Room implements Serializable{
 		this.type = type;
 	}
 	public int getNumberMembers() {
-		return NUMBERMEMBERS;
+		return numMembers;
 	}
 	
 	public String getPassword() {
@@ -81,7 +81,7 @@ public class Room implements Serializable{
 
 	public void setMembers(ArrayList<User> members) {
 		this.members = members;
-		this.NUMBERMEMBERS= members.size();
+		this.numMembers= members.size();
 	}
 
 	public Date getCreationDate() {
@@ -91,11 +91,15 @@ public class Room implements Serializable{
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
+
+	public void setNumMembers(int num){
+		this.numMembers =  num;
+	}
 	
 	@Override
 	public String toString() {
 		return "Room [id=" + id + ", title=" + title + ", owner=" + owner + ", members=" + members + ", creationDate="
-				+ creationDate + ", tags=" + tags + ", type=" + type + ", NUMBERMEMBERS=" + NUMBERMEMBERS
+				+ creationDate + ", tags=" + tags + ", type=" + type + ", NUMBERMEMBERS=" + numMembers
 				+ ", password=" + password + "]";
 	}
 	

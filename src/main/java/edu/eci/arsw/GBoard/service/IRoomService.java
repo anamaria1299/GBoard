@@ -18,11 +18,13 @@ public interface IRoomService {
 
     String save(Room room) throws GBoardException;
 
-    String createRoom(HttpServletRequest req, HttpSession session) throws GBoardException;
+    String createRoom(String roomName, String nick) throws GBoardException;
 
     void updateRoom(Room room) throws GBoardException;
 
     void addUserToRoom(User user, String room) throws GBoardException;
 
-    String joinRoom(HttpServletRequest req, HttpSession session) throws GBoardException;
+    String joinRoom(String roomName, String nick) throws GBoardException;
+
+    List<Room> searchProgress(String title) throws GBoardException;
 }

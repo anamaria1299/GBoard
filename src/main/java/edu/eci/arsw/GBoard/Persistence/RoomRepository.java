@@ -276,4 +276,35 @@ public class RoomRepository implements IRoomRepository{
 		
 	}
 
+	@Override
+	public List<Room> searchProgress(String title) throws GBoardException {
+		String query= "select *, (select COUNT(*) as numMembers from user_room as ur where ur.roomid = r.title)  from room as r where title like '"+title+"%' order by title";
+		Connection connection= null;
+		List<Room> Listroom= new ArrayList<Room>();
+		try {
+			connection= database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+		    ResultSet rs = stmt.executeQuery(query);
+		    while (rs.next()) {
+				Room room =  new Room();
+		    	room.setId(rs.getLong("id"));
+		    	room.setTitle(rs.getString("title"));
+		    	room.setOwner(userRepository.find(rs.getString("owner")));
+		    	room.setCreationDate(rs.getDate("creationdate"));
+				room.setPassword(rs.getString("password"));
+				room.setNumMembers(rs.getInt("numMembers"));
+				Listroom.add(room);
+			}
+		}catch(SQLException e) {
+			throw new GBoardException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+				return Listroom;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
+		}
+	}
+
 }
