@@ -46,13 +46,13 @@ public class UserRepository implements IUserRepository {
 				user.setProfile(rs.getString("profile"));
 				users.add(user);
 			}
-			//connection.close();
+			connection.close();
+			return users;
 		} catch (SQLException e) {
 			throw new GBoardException(e.getMessage());
 		} finally {
 			try {
 				connection.close();
-				return users;
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
@@ -83,13 +83,15 @@ public class UserRepository implements IUserRepository {
 				user.setCountry(rs.getString("country"));
 				user.setProfile(rs.getString("profile"));
 				updateLastDate(nickname);
+				
 			}
+			connection.close();
+			return user;
 		} catch (Exception e) {
 			throw new GBoardException(e.getMessage());
 		} finally {
 			try {
 				connection.close();
-				return user;
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
@@ -140,7 +142,7 @@ public class UserRepository implements IUserRepository {
 				user.setEmail(rs.getString("email"));
 				user.setCountry(rs.getString("country"));
 				user.setProfile(rs.getString("profile"));
-				return user;
+				
 			}
 			connection.close();
 			return user;
