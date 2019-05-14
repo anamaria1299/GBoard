@@ -29,7 +29,7 @@
 				<div th:if="${!session.isEmpty()}">
 					<form action="/logout" method="post" id="logout">
 						<label>Bienvenido otra vez&nbsp;</label>
-						<a th:text="${session.nick}" th:href="${'/u/'+session.nick}"></a>
+						<a th:text="${session.nick}" th:href="${'/u/'+session.nick}" id="nick" style="color:greenyellow"></a>
 						<input type="submit" value="Cerrar Sesión" class="btn btn-light" />
 					</form>
 				</div>

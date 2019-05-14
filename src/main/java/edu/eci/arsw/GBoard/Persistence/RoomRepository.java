@@ -273,7 +273,6 @@ public class RoomRepository implements IRoomRepository{
 			connection= database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-
 			while (rs.next()) {
 				Room room= new Room();
 				room.setId(rs.getLong("id"));
@@ -343,6 +342,39 @@ public class RoomRepository implements IRoomRepository{
 				throw new GBoardException("Failed to close connection");
 			}
 		}
+	}
+
+	@Override
+	public List<Room> findByMember(String nickname) throws GBoardException {
+		String query= "select * from room, user_room where owner <> '"+nickname+"' and userid = '"+nickname+"' and title = roomid";
+		List<Room> rooms= new ArrayList<>();
+		Connection connection= null;
+		try {
+			connection= database.getDataSource().getConnection();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Room room= new Room();
+				room.setId(rs.getLong("id"));
+				room.setTitle(rs.getString("title"));
+				room.setOwner(userRepository.find(rs.getString("owner")));
+				room.setCreationDate(rs.getDate("creationdate"));
+				room.setPassword(rs.getString("password"));
+				rooms.add(room);
+			}
+			connection.close();
+
+		}
+		catch(SQLException e) {
+			throw new GBoardException(e.getMessage());
+		}finally {
+			try {
+				connection.close();
+				return rooms;
+			} catch (SQLException e) {
+				throw new GBoardException("Failed to close connection");
+			}
+		}		
 	}
 
 }

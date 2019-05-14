@@ -3,6 +3,7 @@
 
 <head>
     <th:block th:replace="navbar :: head"></th:block>
+    <link rel="stylesheet" href="/css/search.css">
     <script src="/js/apiSearch.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
@@ -30,7 +31,11 @@
                 </form>
             </div>
         </div>
-        <div class="row" id="roomsContent">
+        <div class="row" id="roomsContent"></div>
+        <div class="row">
+            <div class="col-4 offset-4 text-center loader" id="loader">
+                <i class="fas fa-sync fa-spin fa-7x"></i>
+            </div>
         </div>
     </div>
 

@@ -16,5 +16,6 @@ public interface IRoomRepository extends DAO<Room, String>{
 
 	public void addUser(User user, String room) throws GBoardException;
 	public List<Room> searchProgress(String room) throws GBoardException;
-    List<Room> findByOwner(String nickname) throws GBoardException;
+	List<Room> findByOwner(String nickname) throws GBoardException;
+	List<Room> findByMember(String nickname) throws GBoardException;
 }

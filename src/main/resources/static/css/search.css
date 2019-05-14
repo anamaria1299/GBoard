@@ -1,0 +1,31 @@
+#roomsContent > div > .card{
+    margin-top: 10px;
+}
+
+.search{
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;z-index:9;
+  }
+  
+  .search > .btn{
+    border-top-left-radius: .25rem !important;
+    border-bottom-left-radius: .25rem !important;
+  }
+  
+  #serachTitle{
+    font-size: 4.5rem ;
+    font-family: LogoFont; 
+    color:white
+  }
+  
+  .offset-right-3 {
+    margin-right: 25%;
+  }
+  
+  @media (min-width: 1200px) {
+    .offset-lg-right-3 {
+      margin-right: 25%;
+    }
+  }

@@ -3,28 +3,36 @@ apiSearch = (function() {
 	var join =  function(data){
 		$("#searchInput").attr('disabled','disabled');
 		$("#sendCreate").attr('disabled','disabled');
-		$("#roomsContent").append('<i class="fas fa-sync fa-spin fa-7x"></i>')
+		$("#loader").show();
 		$.ajax({
 			url: "/join",
 			type: "POST",
 			data:  {'name' : data},
-			success: function(data){alert("funK"); window.location.replace("/room/"+data)},
+			success: function(data){window.location.replace("/room/"+data)},
 			error: function(data){alert("No tienes sesion iniciada ):")},
-			complete : function(){$("#searchInput").removeAttr('disabled'); $("#sendCreate").removeAttr('disabled'); }
+			complete : function(){
+				$("#searchInput").removeAttr('disabled'); 
+				$("#sendCreate").removeAttr('disabled'); 
+				$("#loader").hide();
+			}
 		})
 	}
 	
 	var create =  function(){
 		$("#searchInput").attr('disabled','disabled');
 		$("#sendCreate").attr('disabled','disabled');
-		$("#roomsContent").append('<i class="fas fa-sync fa-spin fa-7x"></i>')
+		$("#loader").show();
 		$.ajax({
 			url: "/create",
 			type: "POST",
 			data:  $('#searchForm').serialize(),
-			success: function(data){alert("funK"); window.location.replace("/room/"+data)},
+			success: function(data){window.location.replace("/room/"+data)},
 			error: function(data){alert("No tienes sesion iniciada ):");console.log(data);},
-			complete : function(){$("#searchInput").removeAttr('disabled'); $("#sendCreate").removeAttr('disabled'); }
+			complete : function(){
+				$("#searchInput").removeAttr('disabled'); 
+				$("#sendCreate").removeAttr('disabled'); 
+				$("#loader").hide();
+			}
 		})
 	}
 
@@ -33,14 +41,19 @@ apiSearch = (function() {
 		$("#searchInput").attr('disabled','disabled');
 		$("#sendCreate").attr('disabled','disabled');
 		$("#roomsContent").empty();
-		$("#roomsContent").append('<i class="fas fa-sync fa-spin fa-7x"></i>')
+		$("#loader").show();
 		$.ajax({
 			url: "/searcher",
 			type: "GET",
 			data:  data,
 			success: function(data){rooms(data)},
 			error: function(data){alert("No tienes sesion iniciada ):");},
-			complete : function(){$("#searchInput").removeAttr('disabled'); $("#sendCreate").removeAttr('disabled'); }
+			complete : function(){
+				$("#searchInput").removeAttr('disabled'); 
+				$("#searchInput").focus();
+				$("#sendCreate").removeAttr('disabled'); 
+				$("#loader").hide();
+			}
 		})
 	}
 
@@ -92,7 +105,6 @@ apiSearch = (function() {
 
 $(document).ready(function(){
 	$("#searchInput").on('input',function(){
-		console.log(this);
 		if($(this).val() != ""){
 			apiSearch.search();
 		}

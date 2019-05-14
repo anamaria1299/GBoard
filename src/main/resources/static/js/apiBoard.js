@@ -24,7 +24,10 @@ apiBoard = (function () {
     drawUpload = $$('drawing-upload'),
     drawDownload = $$('drawig-download');
 
-  clearEl.onclick = function () { canvas.clear() };
+  clearEl.onclick = function () { 
+    canvas.clear() 
+    SocketFunction();
+  };
 
   drawingModeEl.onclick = function () {
     canvas.shape = null;
