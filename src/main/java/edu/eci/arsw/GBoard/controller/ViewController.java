@@ -32,8 +32,6 @@ public class ViewController implements ErrorController {
 		
 	}
 
-
-
 	@RequestMapping("/u/{profile}")
 	  String profile(@PathVariable String profile, Model model, HttpSession session) {
 			try {
@@ -48,6 +46,9 @@ public class ViewController implements ErrorController {
 	String search() {
 		return "search";
 	}
+
+	@RequestMapping("/chat")
+	String chat() {return "chat";}
 
 	@RequestMapping("/error")
 	String error() {

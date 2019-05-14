@@ -83,14 +83,13 @@ public class UserRepository implements IUserRepository {
 				user.setCountry(rs.getString("country"));
 				user.setProfile(rs.getString("profile"));
 				updateLastDate(nickname);
-				return user;
 			}
 		} catch (Exception e) {
 			throw new GBoardException(e.getMessage());
 		} finally {
 			try {
 				connection.close();
-				return null;
+				return user;
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
@@ -119,7 +118,7 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public User find(String nickname) throws GBoardException {
-		
+
 		String query = "select * from users where nickname = '" + nickname+"'";
 		User user = new User();
 		Connection connection = null;
@@ -181,7 +180,7 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public void upadate(User entity) throws GBoardException {
-		
+
 		Connection connection = null;
 		try {
 			connection = database.getDataSource().getConnection();
@@ -232,7 +231,7 @@ public class UserRepository implements IUserRepository {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private String getActualDate() {
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);

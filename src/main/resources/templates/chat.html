@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <th:block th:replace="navbar :: head"></th:block>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <link href="/css/chat.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/global.css" />
+        <script src="/js/chat.js"></script>
+    </head>
+    <body>
+        <div class="chat_window" >
+            <div class="navbar" style="height: 7%;"></div>
+            <div class="top_menu">
+                <div class="title">Chat sala : ______</div>
+            </div>
+
+            <ul class="messages"></ul>
+            <div class="bottom_wrapper clearfix">
+                <div class="message_input_wrapper">
+                    <input id="message_text" class="message_input" placeholder="Escribe tu mensaje ..." />
+                </div>
+                <button onclick="chat.send()" class="btn btn-success" type="button">Enviar</button>
+                <button onclick="chat.connect()" class="btn btn-info" type="button">Conectarme</button>
+            </div>
+        </div>
+
+        <div id="message_template" class="message_template">
+            <li class="message">
+                <div class="avatar"></div>
+                <div class="text_wrapper">
+                    <div class="text"></div>
+                </div>
+            </li>
+        </div>
+    </body>
+</html>
