@@ -29,7 +29,6 @@ public class UserController {
 	@RequestMapping(value="/users",method = RequestMethod.GET)
 	public ResponseEntity<?> listAllUsers(){
 	    try {
-	    	//System.out.println(userService.getUsers());
 	        return new ResponseEntity<>(userService.getUsers(),HttpStatus.ACCEPTED);
 	    } catch (Exception ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
@@ -39,9 +38,11 @@ public class UserController {
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public ResponseEntity<?> postLogIn(HttpServletRequest req, HttpSession session){
 	    try {
-	    	userService.getCredentials(req);
+	    	System.out.println(req.getParameter("inputNick"));
+	    	System.out.println(req.getParameter("inputNick"));
+	    	User us = userService.getCredentials(req);
 	        ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
-	        session.setAttribute("nick", req.getParameter("inputNick"));
+	        session.setAttribute("nick", us.getNickName());
 	        return ans;
 	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);

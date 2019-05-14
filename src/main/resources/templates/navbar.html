@@ -40,37 +40,38 @@
 	</nav>
 
 
-	<div class="modal fade" id="modallogIn" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+	<div class="modal fade" id="modallogIn" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Acceder</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+				<nav class="navbar navbar-dark bg-dark navbar-expand-lg justify-content-between">
+					<div class="modal-header">
+						<a class="nav-item nav-link active" id="exampleModalLongTitle" >Acceder</a>
+					</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
+				</nav>
 				<div class="modal-body">
 					<div th:replace="login :: modalogin"></div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div class="modal fade" id="modalSignUp" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+
+	<div class="modal fade" id="modalSignUp" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Registrarse</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+				<nav class="navbar navbar-dark bg-dark navbar-expand-lg justify-content-between">
+					<div class="modal-header">
+						<a class="nav-item nav-link active" id="exampleModalLongTitle">Registrarse</a>
+					</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
+				</nav>
 				<div class="modal-body">
 					<div th:replace="signup :: modalsignup"></div>
 				</div>
