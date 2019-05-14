@@ -19,13 +19,14 @@ apiSearch = (function() {
 	}
 	
 	var create =  function(){
+		var data = $('#searchForm').serialize();
 		$("#searchInput").attr('disabled','disabled');
 		$("#sendCreate").attr('disabled','disabled');
 		$("#loader").show();
 		$.ajax({
 			url: "/create",
 			type: "POST",
-			data:  $('#searchForm').serialize(),
+			data:  data,
 			success: function(data){window.location.replace("/room/"+data)},
 			error: function(data){alert("No tienes sesion iniciada ):");console.log(data);},
 			complete : function(){
@@ -75,7 +76,7 @@ apiSearch = (function() {
 			                	'<div class="card infocontainer">'+
 									'<div class="card-body text-center">'+
 										'<h5 class="card-title">'+room.title+'</h5>'+
-										'<h6 class="card-subtitle mb-2 text-muted">Dueño: '+room.owner.name+'</h6>'+
+										'<h6 class="card-subtitle mb-2 text-muted">Dueño: '+room.owner.nickName+'</h6>'+
 										'<p class="card-text">Miembros: '+room.numberMembers+'</p>'+
 										'<p class="card-text">Creación: '+room.creationDate+'</p>'+
 										'<button class="btn btn-success join">Unirme</button>'
@@ -111,7 +112,9 @@ $(document).ready(function(){
 	})
 	
 	$("#sendCreate").click(function(){
-		apiSearch.create()
+		if($("#searchInput").val() != ""){
+			apiSearch.create();
+		}
 	});
 
 });

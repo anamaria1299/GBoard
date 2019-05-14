@@ -277,11 +277,8 @@ public class RoomRepository implements IRoomRepository{
 				Room room= new Room();
 				room.setId(rs.getLong("id"));
 				room.setTitle(rs.getString("title"));
-				room.setOwner(userRepository.find(rs.getString("owner")));
 				room.setCreationDate(rs.getDate("creationdate"));
 				room.setPassword(rs.getString("password"));
-				room.setMembers(new ArrayList<User>());
-				room.setTags(new ArrayList<Tag>());
 				RoomType type= new RoomType();
 				type.setId(rs.getLong("type"));
 				room.setType(type);
@@ -325,8 +322,9 @@ public class RoomRepository implements IRoomRepository{
 		    while (rs.next()) {
 				Room room =  new Room();
 		    	room.setId(rs.getLong("id"));
-		    	room.setTitle(rs.getString("title"));
-		    	room.setOwner(userRepository.find(rs.getString("owner")));
+				room.setTitle(rs.getString("title"));
+				room.setOwner(new User());
+				room.getOwner().setNickName(rs.getString("owner"));
 		    	room.setCreationDate(rs.getDate("creationdate"));
 				room.setPassword(rs.getString("password"));
 				room.setNumMembers(rs.getInt("numMembers"));
@@ -357,7 +355,6 @@ public class RoomRepository implements IRoomRepository{
 				Room room= new Room();
 				room.setId(rs.getLong("id"));
 				room.setTitle(rs.getString("title"));
-				room.setOwner(userRepository.find(rs.getString("owner")));
 				room.setCreationDate(rs.getDate("creationdate"));
 				room.setPassword(rs.getString("password"));
 				rooms.add(room);

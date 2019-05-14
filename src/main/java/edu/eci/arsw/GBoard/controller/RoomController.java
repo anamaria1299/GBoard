@@ -97,6 +97,7 @@ public class RoomController {
 		try {
 			String nick = session.getAttribute("nick").toString();
 			String roomName = req.getParameter("createName");
+			//System.out.println(roomName);
 			return new ResponseEntity<>(roomService.createRoom(roomName, nick),HttpStatus.ACCEPTED);
 	    } catch (GBoardException ex) {
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);

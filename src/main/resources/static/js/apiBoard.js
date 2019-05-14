@@ -62,6 +62,17 @@ apiBoard = (function () {
     }
   }
 
+  drawTextEl.onclick = function(){
+    canvas.isDrawingMode = false;
+    canvas.shape = function(x,y){
+      return new fabric.IText("I'm in Comic Sans", {
+        fontFamily: 'Comic Sans',
+        left :x,
+        top : y
+      });
+    }
+  }
+
   drawImageEl.onclick = function () {
     canvas.isDrawingMode = false;
     if($("#contentImg")) $("#contentImg").remove();
