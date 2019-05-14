@@ -2,16 +2,8 @@ package edu.eci.arsw.GBoard.model;
 
 public class Message {
 
-    //private User transmitter;
+    private String from;
     private String message;
-
-//    public User getTransmitter() {
-//        return transmitter;
-//    }
-//
-//    public void setTransmitter(User transmitter) {
-//        this.transmitter = transmitter;
-//    }
 
     public String getMessage() {
         return message;
@@ -21,10 +13,19 @@ public class Message {
         this.message = message;
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
-                "message='" + message + '\'' +
+                "from='" + from + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

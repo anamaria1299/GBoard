@@ -7,8 +7,8 @@ var chat= (function(){
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
-            console.info("connected: "+frame);
-            stompClient.subscribe("/topic/chat", function (response) {
+            //console.info("connected: "+frame);
+            stompClient.subscribe("/topic/message", function (response) {
                 //console.log(response);
                 var data= JSON.parse(response.body);
                 draw("left", data.message);
@@ -17,11 +17,11 @@ var chat= (function(){
     }
 
     function sendMessage() {
-        console.log("voy a enviar "+ $("#message_text").val());
         var chatMessage = {
-            message: $("#message_text").val()
+            message: $("#message_text").val(),
+            from: $("#nick").text()
         };
-        stompClient.send("/topic/chat",{},JSON.stringify(chatMessage));
+        stompClient.send("/app/message",{},JSON.stringify(chatMessage));
     }
 
     function draw(side, text){
