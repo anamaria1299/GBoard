@@ -37,6 +37,7 @@ function onError(error) {
 
 window.onload = function() {
     connect();
+    chat.connect();
 };
 
 apiBoard.Socket(sendMessage);

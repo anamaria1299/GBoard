@@ -4,6 +4,7 @@ public class Message {
 
     private String from;
     private String message;
+    private String room;
 
     public String getMessage() {
         return message;
@@ -21,11 +22,20 @@ public class Message {
         this.from = from;
     }
 
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "from='" + from + '\'' +
                 ", message='" + message + '\'' +
+                ", room='" + room + '\'' +
                 '}';
     }
 }
