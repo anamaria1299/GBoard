@@ -7,6 +7,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
   <script src="/js/hpack.js"></script>
+
+  <link href="/css/chat.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css" />
+  <script src="/js/chat.js"></script>
 </head>
 
 <body>
@@ -14,7 +18,7 @@
   <br>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
+      <div class="col-8">
         <a class="btn btn-light"  id="drawing-move">
           <i class="far fa-hand-paper"></i>
         </a>
@@ -55,6 +59,39 @@
       <div class="col-8" id="boardContainer">
         <canvas id="c"></canvas>
       </div>
+
+      <!-- CHAT CONTAINER-->
+      <div class="col-4" id="chatContainer">
+
+        <div class="chat_window" >
+          <div class="navbar" style="height: 10%;">
+            <a class="navbar-brand" href="/" style="color: #fff;">CHAT</a>
+          </div>
+          <ul class="messages"></ul>
+          <div class="bottom_wrapper clearfix">
+            <div class="row">
+              <div class="message_input_wrapper col-9">
+                <input id="message_text" class="message_input" placeholder="Escribe tu mensaje ..." />
+              </div>
+              <div class="col-2">
+                <button onclick="chat.send()" class="btn btn-success" type="button">Enviar</button>
+              </div>
+            </div>
+            <button onclick="chat.connect()" class="btn btn-info" type="button">Conectarme</button>
+          </div>
+        </div>
+
+        <div id="message_template" class="message_template">
+          <li class="message">
+            <div class="avatar"></div>
+            <div class="text_wrapper">
+              <div class="text"></div>
+            </div>
+          </li>
+        </div>
+
+      </div>
+
     </div>
     <div class="row">
     </div>
