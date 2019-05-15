@@ -7,6 +7,10 @@
   margin-left: 50px;
 }
 
+#navbarNavAltMarkup{
+  font-size: 1.3rem;
+}
+
 .navbar{
   background-image: url(/img/wood.jpg);
 }
@@ -56,3 +60,10 @@ body{
   margin-top: 20px;
 }
 
+#boardContainer{
+  margin-top:10px;
+}
+
+#boardContainer > div{
+  background-color: white;
+}

@@ -5,7 +5,7 @@ apiBoard = (function () {
   //Initialize Canvas
   var canvas = this.__canvas = new fabric.Canvas('c', {
     isDrawingMode: true,
-    height: 500
+    height: 700
   });
 
   fabric.Object.prototype.transparentCorners = false;
@@ -65,7 +65,7 @@ apiBoard = (function () {
   drawTextEl.onclick = function(){
     canvas.isDrawingMode = false;
     canvas.shape = function(x,y){
-      return new fabric.IText("I'm in Comic Sans", {
+      return new fabric.IText("Escribe tu texto aqui", {
         fontFamily: 'Comic Sans',
         left :x,
         top : y
@@ -199,6 +199,8 @@ apiBoard = (function () {
 
 $(document).ready(function(){
   $("canvas").css("width", "100%");
+  $("canvas").css("border","10px solid black");
+  $("canvas").css("border-image","url(/img/wood.jpg) 8")
   apiBoard.reSize($("#boardContainer").width());
 });
 
