@@ -83,20 +83,20 @@ public class UserRepository implements IUserRepository {
 				user.setCountry(rs.getString("country"));
 				user.setProfile(rs.getString("profile"));
 				updateLastDate(nickname);
-				
+				return user;
 			}
 			connection.close();
-			return user;
+			throw new GBoardException("No se ingresó bien las credenciales");
 		} catch (Exception e) {
-			throw new GBoardException(e.getMessage());
+			throw new GBoardException("Ocurrio un error inesperado al iniciar sesion");
 		} finally {
 			try {
 				connection.close();
+				
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
 		}
-
 	}
 
 	private void updateLastDate(String nickname) throws GBoardException {

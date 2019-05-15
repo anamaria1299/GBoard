@@ -38,8 +38,6 @@ public class UserController {
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public ResponseEntity<?> postLogIn(HttpServletRequest req, HttpSession session){
 	    try {
-	    	System.out.println(req.getParameter("inputNick"));
-	    	System.out.println(req.getParameter("inputNick"));
 	    	User us = userService.getCredentials(req);
 	        ResponseEntity<?> ans = new ResponseEntity<>("Accepted",HttpStatus.ACCEPTED);
 	        session.setAttribute("nick", us.getNickName());
