@@ -23,9 +23,17 @@
   .offset-right-3 {
     margin-right: 25%;
   }
+
+  .offset-lg-0{
+    margin-right: 0;
+  }
   
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     .offset-lg-right-3 {
       margin-right: 25%;
+    }
+
+    .offset-lg-right-0 {
+      margin-right: 0;
     }
   }

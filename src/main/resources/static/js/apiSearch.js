@@ -9,7 +9,7 @@ apiSearch = (function() {
 			type: "POST",
 			data:  {'name' : data},
 			success: function(data){window.location.replace("/room/"+data)},
-			error: function(data){alert("No tienes sesion iniciada ):")},
+			error: function(data){toastr["error"](data.responseText);},
 			complete : function(){
 				$("#searchInput").removeAttr('disabled'); 
 				$("#sendCreate").removeAttr('disabled'); 
@@ -28,7 +28,7 @@ apiSearch = (function() {
 			type: "POST",
 			data:  data,
 			success: function(data){window.location.replace("/room/"+data)},
-			error: function(data){alert("No tienes sesion iniciada ):");console.log(data);},
+			error: function(data){toastr["error"](data.responseText);},
 			complete : function(){
 				$("#searchInput").removeAttr('disabled'); 
 				$("#sendCreate").removeAttr('disabled'); 
@@ -48,7 +48,7 @@ apiSearch = (function() {
 			type: "GET",
 			data:  data,
 			success: function(data){rooms(data)},
-			error: function(data){alert("No tienes sesion iniciada ):");},
+			error: function(data){toastr["error"](data.responseText);},
 			complete : function(){
 				$("#searchInput").removeAttr('disabled'); 
 				$("#searchInput").focus();
@@ -62,14 +62,17 @@ apiSearch = (function() {
 		$("#roomsContent").empty();
 		for(var i=0 ; i < data.length; i++){
 			var offsetClass = 'col-3 col-lg-2';
-			/*if(i % 2 == 0)
-				offsetClass += ' offset-lg-3'*/
-			/*else
-				offsetClass += ' offset-right-3'*/
+			if((i-1) >= 0 && (i-1)%3 == 0)
+				offsetClass += ' offset-right-3 offset-lg-right-0'
 			if( i%3 == 0)
-				offsetClass += ' offset-3'
+				offsetClass += ' offset-lg-3'
 			if((i+1)%3 == 0)
 				offsetClass += ' offset-lg-right-3'	
+			if(i%2 == 0) 
+				offsetClass += ' offset-3 offset-lg-0'
+			
+			/*if(i==2)
+				offsetClass += ' offset-'*/
 			
 			var room = data[i];
 			var roomStr = 	'<div class="'+offsetClass+'">'+
@@ -116,5 +119,18 @@ $(document).ready(function(){
 			apiSearch.create();
 		}
 	});
+
+	toastr.options = {
+		"positionClass": "toast-top-right",
+		"preventDuplicates": false,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "5000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	  }
 
 });

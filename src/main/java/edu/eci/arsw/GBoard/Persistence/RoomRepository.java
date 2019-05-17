@@ -178,19 +178,28 @@ public class RoomRepository implements IRoomRepository{
 		long maxId= this.findAll().size()+1;
 		entity.setId(maxId);
 		String query = "INSERT INTO room VALUES ("+entity.getId()+",'"+entity.getTitle()+"',"+entity.getType().getId()+",'"+entity.getOwner().getNickName()+"','"+entity.getCreationDate()+"','"+entity.getPassword()+"')";
+		String query2 = "select * from room where title = '"+entity.getTitle()+"'";
 		Connection connection = null;		
 		try {
 			connection = database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
-			stmt.execute(query);
-			connection.close();
-			return entity.getTitle();
+			ResultSet rs = stmt.executeQuery(query2);
+			if(!rs.next()){
+				stmt.execute(query);
+				connection.close();
+				return entity.getTitle();
+			}
+			else{
+				throw new GBoardException("Ya existe una sala con ese nombre");
+			}
+
 		} catch (SQLException e) {
+			//e.printStackTrace();
 			throw new GBoardException(e.getMessage());
 		} finally {
 			try {
 				connection.close();
-				return entity.getTitle();
+				//return entity.getTitle();
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}
@@ -246,7 +255,7 @@ public class RoomRepository implements IRoomRepository{
 				upadate(entity);
 			}
 			else{
-				throw new GBoardException("You already are in this group");
+				throw new GBoardException("Usted ya hace parte de este grupo");
 			}
 			connection.close();
 		}
@@ -330,12 +339,13 @@ public class RoomRepository implements IRoomRepository{
 				room.setNumMembers(rs.getInt("numMembers"));
 				Listroom.add(room);
 			}
+			return Listroom;
 		}catch(SQLException e) {
 			throw new GBoardException(e.getMessage());
 		} finally {
 			try {
 				connection.close();
-				return Listroom;
+				//return Listroom;
 			} catch (SQLException e) {
 				throw new GBoardException("Failed to close connection");
 			}

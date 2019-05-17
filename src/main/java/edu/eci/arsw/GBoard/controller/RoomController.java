@@ -84,6 +84,8 @@ public class RoomController {
 	@RequestMapping(value="/join",method=RequestMethod.POST)
 	public ResponseEntity<?> joinRoom(HttpServletRequest req, HttpSession session){
 		try {
+			if(session.getAttribute("nick") == null)
+				throw new GBoardException("Debes iniciar sesion");
 			String roomName = req.getParameter("name");
 			String nick = session.getAttribute("nick").toString();
 	        return new ResponseEntity<>(roomService.joinRoom(roomName, nick),HttpStatus.ACCEPTED);
@@ -95,11 +97,14 @@ public class RoomController {
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	public ResponseEntity<?> createRoom(HttpServletRequest req, HttpSession session){
 		try {
+			if(session.getAttribute("nick") == null)
+				throw new GBoardException("Debes iniciar sesion");
 			String nick = session.getAttribute("nick").toString();
 			String roomName = req.getParameter("createName");
 			//System.out.println(roomName);
 			return new ResponseEntity<>(roomService.createRoom(roomName, nick),HttpStatus.ACCEPTED);
 	    } catch (GBoardException ex) {
+			ex.printStackTrace();
 	        return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	    }
 	}
