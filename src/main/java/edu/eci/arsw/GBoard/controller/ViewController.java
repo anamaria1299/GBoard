@@ -2,6 +2,7 @@ package edu.eci.arsw.GBoard.controller;
 
 import edu.eci.arsw.GBoard.Persistence.GBoardException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class ViewController implements ErrorController {
 	}
 
 	@RequestMapping("/room/{title}")
-	String board(HttpSession session) {
+	String board(HttpSession session,  HttpServletResponse res) {
+		CleanCache(res);
 		if(	session.getAttribute("nick") != null)
 				return "tablero";
 		return "error";
@@ -33,9 +35,10 @@ public class ViewController implements ErrorController {
 	}
 
 	@RequestMapping("/u/{profile}")
-	  String profile(@PathVariable String profile, Model model, HttpSession session) {
+	  String profile(@PathVariable String profile, Model model, HttpSession session, HttpServletResponse res) {
 			try {
 				model.addAttribute("user", userRepository.find(profile));
+				CleanCache(res);
 			} catch (GBoardException e) {
 				e.printStackTrace();
 			}
@@ -43,7 +46,8 @@ public class ViewController implements ErrorController {
 			}
 
 	@RequestMapping("/search")
-	String search() {
+	String search(HttpServletResponse res) {
+		CleanCache(res);
 		return "search";
 	}
 
@@ -58,5 +62,11 @@ public class ViewController implements ErrorController {
 	@Override
 	public String getErrorPath() {
 		return "/error";
+	}
+
+	private void CleanCache(HttpServletResponse res){
+		res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+	    res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+	    res.setDateHeader("Expires", 0);
 	}
 }
