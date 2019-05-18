@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-    	<th:block th:replace="navbar :: head"></th:block>
+			<th:block th:replace="navbar :: head"></th:block>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     	<script src="/js/profile.js"></script>
     	<script src="/js/apiProfile.js"></script>
     </head>
@@ -63,7 +65,7 @@
 							<div class="col-sm-1"></div>
 							<div class="col-sm-11">
 								<p class="lead" id="info-profile" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;' th:text="${user.profile}">
-									<div id="profile-text"></div>
+									<div th:if="${session.nick == user.nickName}" id="profile-text"></div>
 								</p>
 							</div>
 						  </div>
@@ -78,7 +80,7 @@
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Sexo</dt>
 								<dd class="col-sm-4" id="more-gender" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;' th:text="${user.gender}"></dd>
 								<dd class="col-sm-4">
-									<button id="more-gender-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-gender',$('#nickname').val(),'Gender')">Editar</button>
+									<button th:if="${session.nick == user.nickName}" id="more-gender-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-gender',$('#nickname').val(),'Gender')">Editar</button>
 								</dd>
 
 								
@@ -88,21 +90,21 @@
 								<!--a th:href="${user.webPage}"></a-->
 								</dd>
 								<dd class="col-sm-4">
-									<button id="more-web-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-web',$('#nickname').val(),'Web')">Editar</button>
+									<button th:if="${session.nick == user.nickName}" id="more-web-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-web',$('#nickname').val(),'Web')">Editar</button>
 								</dd>
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Correo electrónico</dt>
 								<dd class="col-sm-4" id="more-mail" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;' th:text="${user.email}"></dd>
 								<dd class="col-sm-4">
-									<button id="more-mail-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-mail',$('#nickname').val(),'Mail')">Editar</button>
+									<button th:if="${session.nick == user.nickName}" id="more-mail-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-mail',$('#nickname').val(),'Mail')">Editar</button>
 								</dd>
 								
 								<dd class="col-sm-1"></dd>
 								<dt class="col-sm-3" style='text-align: left;font-style: italic;font-size: inherit;font-weight: bolder;'>Ubicación</dt>
 								<dd class="col-sm-4" id="more-location" style='text-align: left;font-style: italic;font-size: inherit;font-weight: 400;' th:text="${user.country}"></dd>
 								<dd class="col-sm-4">
-									<button id="more-location-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-location',$('#nickname').val(),'Location')">Editar</button>
+									<button th:if="${session.nick == user.nickName}" id="more-location-button" type="button" class="btn btn-outline-info" onclick="profile.setInfo('more-location',$('#nickname').val(),'Location')">Editar</button>
 								</dd>
 
 							</dl>

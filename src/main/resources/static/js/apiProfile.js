@@ -8,15 +8,16 @@ apiProfile= (function(){
 		putProfile: function(profile,nickname){
 			this.getUser(nickname,function(data){
 				data.profile= profile;
-				//alert(JSON.stringify(data));
 				$.ajax({
 					type: "PUT",
 					url: "/users/"+nickname,
 					contentType: 'application/json',
 					data: JSON.stringify(data),
-					success: function(data) {
-						console.log(data);
-					}
+					success: function() {
+						toastr["success"]("Se modifico correctamente tu perfil"); 
+						$("#info-profile").text(profile) 
+					},
+					error: function(data){toastr["error"](data.responseText);}
 				});
 			});
 		},
@@ -29,8 +30,14 @@ apiProfile= (function(){
 					url: "/users/"+nickname,
 					contentType: 'application/json',
 					data: JSON.stringify(data),
-					success: function(data) {
-						console.log(data);
+					success: function() {
+						toastr["success"]("Se modifico correctamente tu perfil"); 
+						$("#more-gender").text(gender); 
+					},
+					error: function(data){toastr["error"](data.responseText);},
+					complete: function(){
+						$("#more-gender-button").text("Editar");
+						$("#more-gender-button").attr("onclick","profile.setInfo('more-gender',$('#nickname').val(),'Gender')")
 					}
 				});
 			});
@@ -44,8 +51,14 @@ apiProfile= (function(){
 					url: "/users/"+nickname,
 					contentType: 'application/json',
 					data: JSON.stringify(data),
-					success: function(data) {
-						console.log(data);
+					success: function() {
+						toastr["success"]("Se modifico correctamente tu perfil"); 
+						$("#more-web").text(web); 
+					},
+					error: function(data){toastr["error"](data.responseText);},
+					complete: function(){
+						$("#more-web-button").text("Editar");
+						$("#more-web-button").attr("onclick","profile.setInfo('more-web',$('#nickname').val(),'Web')")
 					}
 				});
 			});
@@ -60,8 +73,14 @@ apiProfile= (function(){
 					url: "/users/"+nickname,
 					contentType: 'application/json',
 					data: JSON.stringify(data),
-					success: function(data) {
-						console.log(data);
+					success: function() {
+						toastr["success"]("Se modifico correctamente tu perfil"); 
+						$("#more-mail").text(mail); 
+					},
+					error: function(data){toastr["error"](data.responseText);},
+					complete: function(){
+						$("#more-mail-button").text("Editar");
+						$("#more-mail-button").attr("onclick","profile.setInfo('more-mail',$('#nickname').val(),'Mail')");
 					}
 				});
 			});
@@ -75,8 +94,14 @@ apiProfile= (function(){
 					url: "/users/"+nickname,
 					contentType: 'application/json',
 					data: JSON.stringify(data),
-					success: function(data) {
-						console.log(data);
+					success: function() {
+						toastr["success"]("Se modifico correctamente tu perfil"); 
+						$("#more-location").text(locat); 
+					},
+					error: function(data){toastr["error"](data.responseText);},
+					complete: function(){
+						$("#more-location-button").text("Editar");
+						$("#more-location-button").attr("onclick","profile.setInfo('more-location',$('#nickname').val(),'Location')");
 					}
 				});
 			});

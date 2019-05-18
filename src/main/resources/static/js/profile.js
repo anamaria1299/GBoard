@@ -24,7 +24,7 @@ profile= (function(){
 		},
 		
 		setInfo: function setGender(component,nickName, type){
-			$("#"+component)[0].innerHTML = '<input id="'+component+'-1" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">';
+			$("#"+component)[0].innerHTML = '<input id="'+component+'-1" value="'+$("#"+component).text()+'" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">';
 			$("#"+component+"-button")[0].innerHTML= 'Guardar';
 			//with a static user
 			$("#"+component+"-button")[0].setAttribute('onclick','apiProfile.set'+type+'($("#'+component+'-1").val(),'+"$('#nickname').text()"+')');
