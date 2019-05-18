@@ -15,6 +15,14 @@
   background-image: url(/img/wood.jpg);
 }
 
+.modal-header{
+  font-family: LogoFont;
+  color:white;
+  font-size: 1.3rem;
+  padding: 0px;
+  border-bottom: 0px;
+}
+
 body{
   font-family: LogoFont2;
   background-attachment: fixed;

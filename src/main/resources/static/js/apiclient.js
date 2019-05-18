@@ -27,7 +27,7 @@ apiclient = (function() {
 				type : $('#signup').attr('method'),
 				data : $('#signup').serialize(),
 				success : function(data) {window.location.replace("/")},
-				error : function(data) {$('#modalError').show;$('#modalError').text(data.responseText)}
+				error : function(data) {$('#modalErrorSignup').show();$('#modalErrorSignup').text(data.responseText)}
 			});
 		}
 	}

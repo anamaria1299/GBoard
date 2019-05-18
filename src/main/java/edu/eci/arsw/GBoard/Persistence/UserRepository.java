@@ -161,10 +161,14 @@ public class UserRepository implements IUserRepository {
 	public String save(User entity) throws GBoardException {
 		String date = getActualDate();
 		String query = "INSERT INTO \"users\" VALUES ((SELECT COUNT(*)+1 FROM \"users\"),'"+entity.getName()+"','"+entity.getLastName()+"','"+entity.getNickName()+"','"+entity.getPassword()+"','"+date+"','"+date+"')";
+		String query2 = "select * from users where nickname = '"+entity.getNickName()+"'";
 		Connection connection = null;
 		try {
 			connection = database.getDataSource().getConnection();
 			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query2);
+			if(rs.next())
+				throw new GBoardException("Ya existe un usuario con ese nick");
 			stmt.execute(query);
 			connection.close();
 			return entity.getNickName();
