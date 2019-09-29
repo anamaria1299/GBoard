@@ -22,38 +22,5 @@ public class DataBaseConfiguration {
 	
 	public BasicDataSource getDataSource() {
 		return ds;
-	}
-	
-	
-	/*public static void main(String [] args) throws URISyntaxException, SQLException {
-	  
-		  Connection connection = null;
-		  try
-		  {
-		      connection = ds.getConnection();
-		      Statement stmt = connection.createStatement();
-		      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-		      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-		      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-		      while (rs.next()) {
-		          System.out.println("Read from DB: " + rs.getTimestamp("tick") + "\n");
-		      }
-		      
-		  }
-		  catch (SQLException e)
-		  {
-		      System.out.println(e.getMessage());
-		  }
-		  finally
-		  {
-		      if (connection != null)
-		      {
-		          try { connection.close(); } catch (SQLException e) {}
-		      }
-		  }
-		  
-		  
-	}*/
-    
- 
+	} 
 }
